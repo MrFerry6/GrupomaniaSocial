@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require(`../models/user`)(sequelize);
 
 exports.singup = (req, res, next) => {
@@ -44,8 +45,7 @@ exports.singup = (req, res, next) => {
 exports.login = (req, res, next) =>{
   User.findOne({where:{ email: req.body.email }})
   .then((user) => {
-    console.log(user.password);
-    //logUser(req, user, res);
+   logUser(req,user,res);
   })
   .catch(() => {
     console.log('Error: User not found !!!')
@@ -71,3 +71,35 @@ function validateEmail(email) {
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
 };
+function logUser(req, user, res) {
+  bcrypt.compare(req.body.password, user.password)
+    .then((valid) => {
+      if (!valid) {        
+        console.log('Error: Password not valid !!!')
+        return res.status(401).json({
+          error: new Error('Unauthorize').message
+        })
+      }
+      const token = createToken(user);
+      setLog(res, user, token);
+    })
+    .catch((error) => {
+        console.log('Error: User loggin not success !!!');
+        res.status(500).json({
+          error
+        })
+      })
+}
+function setLog(res, user, token) {
+  console.log("Logging success !")
+  res.status(200).json({
+    userId: user.id,
+    token: token
+  });
+}
+function createToken(user) {
+  return jwt.sign(
+    { userId: user.id },
+    'RANDOM_TOKEN_SECRET',
+    { expiresIn: '24h' });
+}
