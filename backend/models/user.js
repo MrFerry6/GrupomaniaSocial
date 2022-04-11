@@ -2,7 +2,7 @@
 const { Sequelize, Model } = require('sequelize');
 
 
-module.exports = (sequelize) => {
+module.exports = (sequelize) => {//de
     return User = sequelize.define('User', {
         /*id:{
              type: Sequelize.STRING,
