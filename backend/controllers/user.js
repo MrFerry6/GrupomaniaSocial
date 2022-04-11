@@ -1,8 +1,6 @@
 const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
 const bcrypt = require('bcrypt');
-
-
 const User = require(`../models/user`)(sequelize);
 
 exports.singup = (req, res, next) => {
@@ -42,6 +40,22 @@ exports.singup = (req, res, next) => {
       })
     })
 }
+
+exports.login = (req, res, next) =>{
+  User.findOne({where:{ email: req.body.email }})
+  .then((user) => {
+    console.log(user.password);
+    //logUser(req, user, res);
+  })
+  .catch(() => {
+    console.log('Error: User not found !!!')
+    res.status(404).json({
+      error: new Error('Not found').message
+    });
+  }
+  );
+}
+
 
 function createSequelize() {
   return new Sequelize({
