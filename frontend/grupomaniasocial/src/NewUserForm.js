@@ -3,8 +3,11 @@ import { Form, Button } from 'react-bootstrap';
 import React from 'react';
 
 
-const NewUserForm = ({ handleSubmit }) => {
-
+const NewUserForm = (url) => {
+  
+const loginUrl = 'http://localhost:3001/api/auth/login'
+const singupUrl = 'http://localhost:3001/api/auth/signup'
+  console.log(url);
   const [body, setBody] = useState([
     {
       email: '',
@@ -34,7 +37,7 @@ const NewUserForm = ({ handleSubmit }) => {
   
 
   function handleSubmit(){
-    fetch('http://localhost:3001/api/auth/signup', {
+    fetch(loginUrl, {
       method: "POST",
       credentials: "same-origin",
       headers: {
