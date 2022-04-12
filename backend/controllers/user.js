@@ -5,17 +5,17 @@ const jwt = require('jsonwebtoken');
 const User = require(`../models/user`)(sequelize);
 
 exports.singup = (req, res, next) => {
-
-  if (!validateEmail(req.body.email)) {
+const body = req.body;
+  if (!validateEmail(body.email)) {
     console.log('Error: not valid email !!!');
     return res.status(400).json({
       error: new Error('Bad Request').message
     })
   }
-  bcrypt.hash(req.body.password, 10)
+  bcrypt.hash(body.password, 10)
     .then((hash) => {
       User.create({
-        email: req.body.email,
+        email: body.email,
         password: hash,
         //position: 'photo',    
         //deparment: 'photo',    

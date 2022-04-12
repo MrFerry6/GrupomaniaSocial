@@ -12,11 +12,26 @@ const NewUserForm = ({ handleSubmit }) => {
     }
   ]);
   function handleEmailChange(event) {
-    setBody({ email: event.target.value });
+    setBody(
+      { email: event.target.value ,
+        password: body.password});
+    console.log(body.email);
+    console.log(JSON.stringify(body));
+    console.log(JSON.stringify(body.email));
+    
+    console.log(JSON.stringify(body.password));
   }
   function handlePasswordChange(event) {
-    setBody({ password: event.target.value });
+    setBody(
+      { email: body.email ,
+        password: event.target.value});
+    console.log(body.email);
+    console.log(JSON.stringify(body));
+    console.log(JSON.stringify(body.email));
+    
+    console.log(JSON.stringify(body.password));
   }
+  
 
   function handleSubmit(){
     fetch('http://localhost:3001/api/auth/signup', {
@@ -25,22 +40,24 @@ const NewUserForm = ({ handleSubmit }) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body:JSON.stringify( body)})
+      body:JSON.stringify({
+        email: body.email,
+        password : body.password
+      })
+    })
     .then((res, req) => {
-      console.log('Ole Ole')
+      console.log(req.body)
     })
     .catch((error, res) => {
       console.log('Error: Fetch not sended')
-      res.status(500).json({
-        error
-      })
+      
     })
 
   };
 
-  useEffect(() => {
+ /* useEffect(() => {
     console.log('UseEffect working ')
-  }, [body]);
+  }, [body]);*/
 
   return (
     <Form>
