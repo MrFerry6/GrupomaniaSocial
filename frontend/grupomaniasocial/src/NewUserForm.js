@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+
 import { Form, Button } from 'react-bootstrap';
-import React from 'react';
+import React, { useState }  from 'react';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 
-const NewUserForm = (url) => {
-  
+const NewUserForm = ({url, isSingup}) => {
+console.log('From new user form: '+ isSingup)
 const loginUrl = 'http://localhost:3001/api/auth/login'
 const singupUrl = 'http://localhost:3001/api/auth/signup'
-  console.log(url);
+
   const [body, setBody] = useState([
     {
       email: '',
@@ -18,26 +19,26 @@ const singupUrl = 'http://localhost:3001/api/auth/signup'
     setBody(
       { email: event.target.value ,
         password: body.password});
-    console.log(body.email);
+    /*console.log(body.email);
     console.log(JSON.stringify(body));
-    console.log(JSON.stringify(body.email));
+    console.log(JSON.stringify(body.email));*/
     
-    console.log(JSON.stringify(body.password));
+    console.log(JSON.stringify(body.email));
   }
   function handlePasswordChange(event) {
     setBody(
       { email: body.email ,
         password: event.target.value});
-    console.log(body.email);
+    /*console.log(body.email);
     console.log(JSON.stringify(body));
-    console.log(JSON.stringify(body.email));
+    console.log(JSON.stringify(body.email));*/
     
     console.log(JSON.stringify(body.password));
   }
   
 
   function handleSubmit(){
-    fetch(loginUrl, {
+    fetch(isSingup ? singupUrl: loginUrl, {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -49,7 +50,7 @@ const singupUrl = 'http://localhost:3001/api/auth/signup'
       })
     })
     .then((res, req) => {
-      console.log(req.body)
+      console.log(res);
     })
     .catch((error, res) => {
       console.log('Error: Fetch not sended')
@@ -77,7 +78,7 @@ const singupUrl = 'http://localhost:3001/api/auth/signup'
       </Form.Group>
 
       <Button variant="primary"  onClick={handleSubmit}>
-        Submit
+        {isSingup? 'SINGUP':'LOGIN'}
       </Button>
     </Form>);
 }
