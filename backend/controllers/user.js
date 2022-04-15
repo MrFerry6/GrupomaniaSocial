@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require(`../models/user`)(sequelize);
 
+
 exports.singup = (req, res, next) => {
 const body = req.body;
   if (!validateEmail(body.email)) {
@@ -45,7 +46,7 @@ const body = req.body;
 exports.login = (req, res, next) =>{
   User.findOne({where:{ email: req.body.email }})
   .then((user) => {
-   logUser(req,user,res);
+  logUser(req,user,res);
   })
   .catch(() => {
     console.log('Error: User not found !!!')
@@ -81,6 +82,7 @@ function logUser(req, user, res) {
         })
       }
       const token = createToken(user);
+      
       setLog(res, user, token);
     })
     .catch((error) => {
@@ -91,9 +93,8 @@ function logUser(req, user, res) {
       })
 }
 function setLog(res, user, token) {
-  console.log("Logging success !")
+  console.log("Logging success !");
   res.status(200).json({
-    userId: user.id,
     token: token
   });
 }

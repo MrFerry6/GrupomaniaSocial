@@ -8,11 +8,9 @@ const MainUser = () => {
   const [isSingup, setSingup] = useState(true);
   function setLoginMode(){
     setSingup(false);
-    console.log(isSingup)
   }
   function setSingupMode(){
     setSingup(true);
-    console.log(isSingup)
   }
 
   return (

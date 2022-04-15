@@ -7,7 +7,7 @@ const app = express();
 const sequelize = createSequelize();
 
 setHeaders();
-//conectMySqlDB();
+conectMySqlDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

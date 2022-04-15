@@ -1,13 +1,11 @@
 
 import { Form, Button } from 'react-bootstrap';
-import React, { useState }  from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import React, { useState } from 'react';
 
 
-const NewUserForm = ({url, isSingup}) => {
-console.log('From new user form: '+ isSingup)
-const loginUrl = 'http://localhost:3001/api/auth/login'
-const singupUrl = 'http://localhost:3001/api/auth/signup'
+const NewUserForm = ({ isSingup }) => {
+  const loginUrl = 'http://localhost:3001/api/auth/login'
+  const singupUrl = 'http://localhost:3001/api/auth/signup'
 
   const [body, setBody] = useState([
     {
@@ -17,51 +15,55 @@ const singupUrl = 'http://localhost:3001/api/auth/signup'
   ]);
   function handleEmailChange(event) {
     setBody(
-      { email: event.target.value ,
-        password: body.password});
+      {
+        email: event.target.value,
+        password: body.password
+      });
     /*console.log(body.email);
     console.log(JSON.stringify(body));
     console.log(JSON.stringify(body.email));*/
-    
+
     console.log(JSON.stringify(body.email));
   }
   function handlePasswordChange(event) {
     setBody(
-      { email: body.email ,
-        password: event.target.value});
+      {
+        email: body.email,
+        password: event.target.value
+      });
     /*console.log(body.email);
     console.log(JSON.stringify(body));
     console.log(JSON.stringify(body.email));*/
-    
+
     console.log(JSON.stringify(body.password));
   }
-  
 
-  function handleSubmit(){
-    fetch(isSingup ? singupUrl: loginUrl, {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body:JSON.stringify({
-        email: body.email,
-        password : body.password
-      })
-    })
-    .then((res, req) => {
-      console.log(res);
-    })
-    .catch((error, res) => {
-      console.log('Error: Fetch not sended')
-      
-    })
 
+  function handleSubmit() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      email: body.email,
+      password: body.password
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch(isSingup ? singupUrl : loginUrl, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   };
 
- /* useEffect(() => {
-    console.log('UseEffect working ')
-  }, [body]);*/
+  /* useEffect(() => {
+     console.log('UseEffect working ')
+   }, [body]);*/
 
   return (
     <Form>
@@ -77,8 +79,8 @@ const singupUrl = 'http://localhost:3001/api/auth/signup'
         <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
       </Form.Group>
 
-      <Button variant="primary"  onClick={handleSubmit}>
-        {isSingup? 'SINGUP':'LOGIN'}
+      <Button variant="primary" onClick={handleSubmit}>
+        {isSingup ? 'SINGUP' : 'LOGIN'}
       </Button>
     </Form>);
 }
