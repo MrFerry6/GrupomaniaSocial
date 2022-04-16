@@ -2,16 +2,12 @@ import { Nav, Navbar, Container } from 'react-bootstrap';
 import React, { useState} from 'react';
 
 const MainNavbar = ({ isSingup}) => {
-  const loginUrl = 'http://localhost:3001/api/auth/login'
-  const singupUrl = 'http://localhost:3001/api/auth/singup'
   const [isSingup, setSingup] = useState(true);
   function setLoginMode(){
     setSingup(false);
-    console.log(isSingup)
   }
   function setSingupMode(){
     setSingup(true);
-    console.log(isSingup)
   }
 
 

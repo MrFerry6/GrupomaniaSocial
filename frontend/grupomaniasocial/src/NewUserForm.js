@@ -19,11 +19,6 @@ const NewUserForm = ({ isSingup }) => {
         email: event.target.value,
         password: body.password
       });
-    /*console.log(body.email);
-    console.log(JSON.stringify(body));
-    console.log(JSON.stringify(body.email));*/
-
-    console.log(JSON.stringify(body.email));
   }
   function handlePasswordChange(event) {
     setBody(
@@ -40,24 +35,14 @@ const NewUserForm = ({ isSingup }) => {
 
 
   function handleSubmit() {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      email: body.email,
-      password: body.password
-    });
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
+    const requestOptions = setRequestOptions(body);
 
     fetch(isSingup ? singupUrl : loginUrl, requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then((result) => {
+        sessionStorage.setItem('token', result)
+        window.location.reload(false);    
+      })
       .catch(error => console.log('error', error));
   };
 
@@ -86,3 +71,21 @@ const NewUserForm = ({ isSingup }) => {
 }
 
 export default NewUserForm;
+
+function setRequestOptions(body) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    email: body.email,
+    password: body.password
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  return requestOptions;
+}

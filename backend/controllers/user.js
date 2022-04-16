@@ -22,10 +22,11 @@ const body = req.body;
         //deparment: 'photo',    
         //photo: 'photo'
       })
-        .then(() => {
+        .then((user) => {
           console.log("User saved !!!")
+          
           res.status(201).json({
-            message: 'created'
+            token: createToken(user)
           })
         })
         .catch((error) => {
@@ -57,6 +58,20 @@ exports.login = (req, res, next) =>{
   );
 }
 
+exports.auth = (req, res) => {
+  const token = JSON.parse(req.body.token);
+  if(jwt.verify(token.token, 'RANDOM_TOKEN_SECRET')){
+    const decodedToken = jwt.verify(token.token, 'RANDOM_TOKEN_SECRET');
+    return res.status(200).json({
+      logged : true,
+      userId : decodedToken.userId
+    });
+  }
+  else{
+    return res.status(403).json({
+      logged : false
+  });}
+}
 
 function createSequelize() {
   return new Sequelize({
