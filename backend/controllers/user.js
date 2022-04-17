@@ -17,10 +17,7 @@ const body = req.body;
     .then((hash) => {
       User.create({
         email: body.email,
-        password: hash,
-        //position: 'photo',    
-        //deparment: 'photo',    
-        //photo: 'photo'
+        password: hash
       })
         .then((user) => {
           console.log("User saved !!!")

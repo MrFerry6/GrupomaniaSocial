@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const { Sequelize } = require('sequelize');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post')
 const bodyParser = require('body-parser');
 const app = express();
 const sequelize = createSequelize();
@@ -12,6 +13,7 @@ conectMySqlDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api/auth', userRoutes);
+app.use('/api/users', postRoutes);
 module.exports = app;
 
 function conectMySqlDB() {
