@@ -16,7 +16,7 @@ const MainUser = () => {
      myHeaders.append("Content-Type", "application/json");
    
      var raw = JSON.stringify({
-       token: window.sessionStorage.getItem('token')
+       token: window.sessionStorage.getItem('session')
      });
    
      var requestOptions = {

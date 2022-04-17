@@ -64,7 +64,7 @@ exports.auth = (req, res) => {
     const decodedToken = jwt.verify(token.token, 'RANDOM_TOKEN_SECRET');
     return res.status(200).json({
       logged : true,
-      userId : decodedToken.userId
+      userId : decodedToken.userId//is neccesary?
     });
   }
   else{
@@ -73,6 +73,23 @@ exports.auth = (req, res) => {
   });}
 }
 
+exports.deleteUser = (req, res) => {
+  const session = JSON.parse(req.body.session);
+  User.findOne({where:{ id: session.id }})
+  .then((user) => {
+      user.destroy();      
+      console.log("User deleted !!!")
+      res.status(200).json({
+        message: 'Ok!'
+      })
+  })  
+  .catch(() => {
+    console.log('Error: User not found !!!')
+    res.status(404).json({
+      error: new Error('Not found').message
+    })
+  })
+}
 function createSequelize() {
   return new Sequelize({
     database: 'mydb',
@@ -110,7 +127,8 @@ function logUser(req, user, res) {
 function setLog(res, user, token) {
   console.log("Logging success !");
   res.status(200).json({
-    token: token
+    token: token,
+    id: user.id
   });
 }
 function createToken(user) {

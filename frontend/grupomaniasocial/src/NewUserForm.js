@@ -26,11 +26,6 @@ const NewUserForm = ({ isSingup }) => {
         email: body.email,
         password: event.target.value
       });
-    /*console.log(body.email);
-    console.log(JSON.stringify(body));
-    console.log(JSON.stringify(body.email));*/
-
-    console.log(JSON.stringify(body.password));
   }
 
 
@@ -40,16 +35,12 @@ const NewUserForm = ({ isSingup }) => {
     fetch(isSingup ? singupUrl : loginUrl, requestOptions)
       .then(response => response.text())
       .then((result) => {
-        sessionStorage.setItem('token', result)
+        console.log('result; '+result);
+        sessionStorage.setItem('session', result)
         window.location.reload(false);    
       })
       .catch(error => console.log('error', error));
   };
-
-  /* useEffect(() => {
-     console.log('UseEffect working ')
-   }, [body]);*/
-
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
