@@ -13,8 +13,15 @@ module.exports = (sequelize) => {//de
             type: Sequelize.STRING,
             allowNull: false,
             unique: true,
+        },  
+        readPosts: {
+            type: Sequelize.JSON,
+            allowNull: true
         },
-        
+        unreadPosts: {
+            type: Sequelize.JSON,
+            allowNull: true
+        }
     },
         {
             timestamps: false

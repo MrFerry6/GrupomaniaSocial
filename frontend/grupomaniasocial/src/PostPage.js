@@ -11,6 +11,7 @@ const PostPage = () => {
             text: ''
         }
     ]);
+    const [postIds, setpostIds] = useState();
     useEffect(() => {
 
         var requestOptions = {
@@ -23,13 +24,21 @@ const PostPage = () => {
             .then((result) => {
                 const entriesResult = JSON.parse(result);
                 let entries = [];
+                let ids = [];
                 for (let entrie of entriesResult) {
                     entries.push(entrie)
+                    ids.push(entrie.id)
                 }
+                console.log(ids)
+                setpostIds(ids);
                 setpostTopics(entries);
             })
             .catch(error => console.log('error', error));
     }, [])
+    useEffect(() => {
+        console.log('postIdsEfect: ' +postIds)
+        
+    }, [postIds])
 
 
 

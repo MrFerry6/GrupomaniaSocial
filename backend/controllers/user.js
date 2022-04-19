@@ -87,6 +87,22 @@ exports.deleteUser = (req, res) => {
     })
   })
 }
+exports.getUser = (req, res) =>{
+  User.findOne({where:{ id: req.body.id }})
+  .then((user) => {
+    console.log('User found');
+    res.status(200).json({
+     user
+    })
+  })
+  .catch(() => {
+    console.log('Error: User not found !!!')
+    res.status(404).json({
+      error: new Error('Not found').message
+    });
+  }
+  );
+}
 function createSequelize() {
   return new Sequelize({
     database: 'mydb',
