@@ -30,6 +30,7 @@ exports.getPost = (req,res,next) => {
     .then((post) => {
         console.log('Sauces found !')
         res.status(200).json(post);
+
       }
     )
     .catch(() => {

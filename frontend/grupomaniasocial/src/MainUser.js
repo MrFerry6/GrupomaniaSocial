@@ -11,7 +11,6 @@ const MainUser = () => {
 
   const authUrl = 'http://localhost:3001/api/auth/auth'
   useEffect(() => {
-     console.log('UseEffect working ')
      var myHeaders = new Headers();
      myHeaders.append("Content-Type", "application/json");
    
@@ -31,8 +30,7 @@ const MainUser = () => {
      .then((result) => {
         const user = JSON.parse(result);
         setIsLogged(user.logged);
-        console.log(islogged);
-        console.log(user)          
+          
      })
      .catch(error => console.log('error', error));
    });
@@ -45,7 +43,7 @@ const MainUser = () => {
   function setSingupMode(){
     setSingup(true);
   }
-  console.log('Cagon dios '+islogged)
+  
   if(islogged === true){
   return (
     <PostPage/>
