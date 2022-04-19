@@ -32,7 +32,7 @@ const PostPage = () => {
         var raw = JSON.stringify({
             "title": postBody.title,
             "text": postBody.text,
-            "token": session
+            "session": session
         });
 
         var requestOptions = {

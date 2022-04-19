@@ -2,11 +2,13 @@ const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
 const Post = require(`../models/post`)(sequelize);
 exports.post = (req, res, next) => {
-
     const body = req.body;
+    const session = JSON.parse(req.body.session);
+    console.log(session.id)
     Post.create({
+        userId: session.id,
         title: body.title,
-        text: body.text
+        text: body.text,
     })
         .then((post) => {
             console.log("Post saved !!!")
@@ -16,7 +18,7 @@ exports.post = (req, res, next) => {
             })
         })
         .catch((error) => {
-            console.log('Error: User not saved')
+            console.log('Error: Post not saved'+error)
             res.status(500).json({
                 error
             })
