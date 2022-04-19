@@ -36,8 +36,21 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }, [])
     useEffect(() => {
-        console.log('postIdsEfect: ' +postIds)
-        
+        const session = window.sessionStorage.getItem('session')
+        var requestOptions = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:3001/api/auth/findUser", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
     }, [postIds])
 
 
@@ -111,7 +124,7 @@ const PostPage = () => {
 
     //console.log('Paramenter: ' + jsonObject.text)
     //const datapostTopicst = JSON.parse(stringpostTopicst);
-  
+
     return (<>
         <Button onClick={unlogin}>Unlogin</Button>
         <Button onClick={deleteUser}>delete</Button>
@@ -128,18 +141,18 @@ const PostPage = () => {
             </Form.Group>
         </Form>
         <div>
-            {postTopics && 
+            {postTopics &&
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">
-                    <Accordion.Item eventKey="1">
-                        <Accordion.Header>{topic.title}</Accordion.Header>
-                        <Accordion.Body>{topic.text}</Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
+                        <Accordion.Item eventKey="1">
+                            <Accordion.Header>{topic.title}</Accordion.Header>
+                            <Accordion.Body>{topic.text}</Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
                 ))}
         </div>
 
-       
+
     </>)
 }
 

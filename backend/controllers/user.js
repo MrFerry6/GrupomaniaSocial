@@ -88,7 +88,8 @@ exports.deleteUser = (req, res) => {
   })
 }
 exports.getUser = (req, res) =>{
-  User.findOne({where:{ id: req.body.id }})
+  const userId = req.auth.userId;
+  User.findOne({where:{ id: userId }})
   .then((user) => {
     console.log('User found');
     res.status(200).json({
