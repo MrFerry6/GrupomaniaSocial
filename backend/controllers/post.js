@@ -1,10 +1,11 @@
 const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
-const Post = require(`../models/post`)(sequelize);
+const Post= require(`../models/post`)(sequelize);
+
 exports.post = (req, res, next) => {
     const body = req.body;
     const session = JSON.parse(req.body.session);
-    console.log(session.id)
+
     Post.create({
         userId: session.id,
         title: body.title,
@@ -23,6 +24,21 @@ exports.post = (req, res, next) => {
                 error
             })
         })
+}
+exports.getPost = (req,res,next) => {
+    Post.findAll()
+    .then((post) => {
+        console.log('Sauces found !')
+        res.status(200).json(post);
+      }
+    )
+    .catch(() => {
+      console.log('Error: Sauces not found');
+      res.status(404).json({
+        error: new Error('Not found').message
+      });
+    }
+    );
 }
 
 

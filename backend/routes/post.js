@@ -5,6 +5,7 @@ const auth = require('../middleware/auth')
 
 
 router.post('/post', postCtrl.post);
+router.get('/getPost', postCtrl.getPost);
 
 
 
