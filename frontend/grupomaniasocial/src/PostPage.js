@@ -29,7 +29,6 @@ const PostPage = () => {
                     entries.push(entrie)
                     ids.push(entrie.id)
                 }
-                console.log(ids)
                 setpostIds(ids);
                 setpostTopics(entries);
             })
@@ -48,7 +47,37 @@ const PostPage = () => {
 
         fetch("http://localhost:3001/api/auth/findUser", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then((result) => {
+                const user = JSON.parse(result);
+                console.log(user.user.readPost);
+                if(!user.user.readPost){
+                    console.log('Nothing read!!')
+                } 
+                
+                if(!user.user.unreadPost && postIds.length > -1 ){
+                    console.log('Nothing unread!!')
+                    console.log('PostIds:  '+postIds);
+                    var raw = []
+                    for(const id of postIds){
+                        raw.push(id)
+                    }
+                  
+                    var requestOptions = {
+                      method: 'PUT', headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + session
+                    },
+                      body: JSON.stringify( postIds),
+                      redirect: 'follow'
+                    };
+                    fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
+                    .then(response => response.text())
+                    .then((result) => {
+                      console.log('result; '+result); 
+                    })
+                    .catch(error => console.log('error', error));
+                }
+            })
             .catch(error => console.log('error', error));
 
     }, [postIds])
