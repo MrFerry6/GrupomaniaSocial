@@ -24,10 +24,10 @@ exports.post = (req, res, next) => {
             })
         })
 }
-exports.getPost = (req,res,next) => {
+exports.getPosts = (req,res,next) => {
     Post.findAll()
     .then((post) => {
-        console.log('Sauces found !')
+        console.log('Posts found !')
         res.status(200).json(post);
 
       }

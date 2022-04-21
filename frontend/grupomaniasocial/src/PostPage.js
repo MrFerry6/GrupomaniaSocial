@@ -17,12 +17,17 @@ const PostPage = () => {
 
     useEffect(() => {
 
+        const session = window.sessionStorage.getItem('session')
         var requestOptions = {
             method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3001/api/users/getPost", requestOptions)
+        fetch("http://localhost:3001/api/users/getPosts", requestOptions)
             .then(response => response.text())
             .then((result) => {
                 const entriesResult = JSON.parse(result);
@@ -61,7 +66,6 @@ const PostPage = () => {
                     updateUnreadPosts(session, postIds);
                 }
                 if (user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
-                    console.log('Post at unread: ' + user.user.unreadPosts)
                     for (let id of postIds) {
                         if (!user.user.unreadPosts.includes(id)) {
                             user.user.unreadPosts.push(id);
@@ -70,7 +74,6 @@ const PostPage = () => {
                     updateUnreadPosts(session, user.user.unreadPosts);
                 }
                 if (user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
-                    console.log('MIELDA!!!!!!!!!!!!!!!!!!')
                     for (let id of postIds) {
                         if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
                             user.user.unreadPosts.push(id);
