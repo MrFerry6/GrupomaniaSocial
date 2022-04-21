@@ -204,18 +204,20 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-                console.log('handleUpdate: '+ result)
-                const unread = arrayRemove(user.user.unreadPosts,id);
+                console.log('handleUpdate: ' + result)
+                const unread = arrayRemove(user.user.unreadPosts, id);
                 let read = user.user.readPosts;
-                read.push(id);
-                updateUnreadPosts(session,unread);
+                if (!read.includes(id)) {
+                    read.push(id);
+                }
+                updateUnreadPosts(session, unread);
                 updateReadPosts(session, read);
             })
     }
-    function arrayRemove(arr, value) { 
-    
-        return arr.filter(function(ele){ 
-            return ele != value; 
+    function arrayRemove(arr, value) {
+
+        return arr.filter(function (ele) {
+            return ele != value;
         });
     }
     return (<>
@@ -238,12 +240,12 @@ const PostPage = () => {
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">
                         <Accordion.Item eventKey="1">
-                            <Accordion.Header onClick={(e) =>{
+                            <Accordion.Header onClick={(e) => {
                                 handleUpdateRead(e, topic.id)
                             }}>{topic.title}<div>    -----------:{unreadIds && unreadIds.map((id) => <>
                                 {topic.id === id && 'unread'}
                             </>)}
-                            </div>
+                                </div>
                             </Accordion.Header>
                             <Accordion.Body>{topic.text}</Accordion.Body>
                         </Accordion.Item>
