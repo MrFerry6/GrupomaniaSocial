@@ -4,7 +4,7 @@ const postCtrl = require('../controllers/post');
 const auth = require('../middleware/auth')
 
 
-router.post('/post', postCtrl.post);
+router.post('/post',auth, postCtrl.post);
 router.get('/getPost', postCtrl.getPost);
 
 

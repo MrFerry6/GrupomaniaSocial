@@ -4,10 +4,9 @@ const Post= require(`../models/post`)(sequelize);
 
 exports.post = (req, res, next) => {
     const body = req.body;
-    const session = JSON.parse(req.body.session);
 
     Post.create({
-        userId: session.id,
+        userId: req.auth.userId,
         title: body.title,
         text: body.text,
     })

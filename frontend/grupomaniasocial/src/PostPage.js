@@ -100,18 +100,19 @@ const PostPage = () => {
             });
     }
     function sendPost() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
         let session = window.sessionStorage.getItem('session')
         var raw = JSON.stringify({
             "title": postBody.title,
             "text": postBody.text,
-            "session": session
+            //"session": session
         });
 
         var requestOptions = {
             method: 'POST',
-            headers: myHeaders,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
             body: raw,
             redirect: 'follow'
         };
@@ -122,17 +123,15 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }
     function deleteUser() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
         const session = window.sessionStorage.getItem('session')
-        var raw = JSON.stringify({
-            "session": session
-        });
+       
 
         var requestOptions = {
             method: 'DELETE',
-            headers: myHeaders,
-            body: raw,
+            headers: {
+                "Content-Type": "application/json",            
+                "Authorization": "Bearer " + session
+            },
             redirect: 'follow'
         };
 

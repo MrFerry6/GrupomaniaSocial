@@ -73,8 +73,7 @@ exports.auth = (req, res) => {
 }
 
 exports.deleteUser = (req, res) => {
-  const session = JSON.parse(req.body.session);
-  User.findOne({where:{ id: session.id }})
+  User.findOne({where:{ id: req.auth.userId }})
   .then((user) => {
       user.destroy();      
       console.log("User deleted !!!")
