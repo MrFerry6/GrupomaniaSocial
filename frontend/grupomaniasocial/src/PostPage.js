@@ -12,6 +12,9 @@ const PostPage = () => {
         }
     ]);
     const [postIds, setpostIds] = useState();
+    const [unreadIds, setUnreadIds] = useState();
+    const [readIds, setReadIds] = useState();
+
     useEffect(() => {
 
         var requestOptions = {
@@ -45,31 +48,31 @@ const PostPage = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3001/api/auth/findUser", requestOptions)
+        fetch("http://localhost:3001/api/auth/findUser", requestOptions)//check route
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
                 console.log(user.user.unreadPosts);
-               
-                
-                if(user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0 ){
-                    console.log('PostIds:  '+postIds);
-                  
+
+
+                if (user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
+                    console.log('PostIds:  ' + postIds);
+
                     updateUnreadPosts(session, postIds);
                 }
-                if(user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 &&  postIds.length > 0 ){
+                if (user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
                     console.log('Post at unread: ' + user.user.unreadPosts)
-                    for(let id of postIds){
-                        if(!user.user.unreadPosts.includes(id)){
+                    for (let id of postIds) {
+                        if (!user.user.unreadPosts.includes(id)) {
                             user.user.unreadPosts.push(id);
                         }
                     }
                     updateUnreadPosts(session, user.user.unreadPosts);
                 }
-                if(user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 &&  postIds.length > 0 ){
+                if (user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
                     console.log('MIELDA!!!!!!!!!!!!!!!!!!')
-                    for(let id of postIds){
-                        if(!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)){
+                    for (let id of postIds) {
+                        if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
                             user.user.unreadPosts.push(id);
                         }
                     }
@@ -113,7 +116,7 @@ const PostPage = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3001/api/users/post", requestOptions)
+        fetch("http://localhost:3001/api/users/post", requestOptions)//chek the route
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -143,7 +146,78 @@ const PostPage = () => {
         window.sessionStorage.removeItem('session')
         window.location.reload(false);
     }
+    function updateUnreadPosts(session, postIds) {
+        var requestOptions = {
+            method: 'PUT', headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
+            body: JSON.stringify(postIds),
+            redirect: 'follow'
+        };
+        fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
+            .then(response => response.text())
+            .then((result) => {
+                console.log('result; ' + result);
+                const user = JSON.parse(result);
+                setUnreadIds(user.user.unreadPosts);
+            })
+            .catch(error => console.log('error', error));
+    }
+    function updateReadPosts(session, postIds) {
+        var requestOptions = {
+            method: 'PUT', headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
+            body: JSON.stringify(postIds),
+            redirect: 'follow'
+        };
+        fetch('http://localhost:3001/api/auth/modifyRead', requestOptions)
+            .then(response => response.text())
+            .then((result) => {
+                console.log('result; ' + result);
+                //const user = JSON.parse(result);
+                //setUnreadIds(user.user.unreadPosts);
+            })
+            .catch(error => console.log('error', error));
+    }
+
+    function checkIds(unreadId, postId) {
+        if (unreadId === postId) { return true }
+        else { return }
+    }
+
+    function handleUpdateRead(event, id) {
+
+        const session = window.sessionStorage.getItem('session')
+        var requestOptions = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + session
+            },
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:3001/api/auth/findUser", requestOptions)//check route
+            .then(response => response.text())
+            .then((result) => {
+                const user = JSON.parse(result);
+                console.log('handleUpdate: '+ result)
+                const unread = arrayRemove(user.user.unreadPosts,id);
+                let read = user.user.readPosts;
+                read.push(id);
+                updateUnreadPosts(session,unread);
+                updateReadPosts(session, read);
+            })
+    }
+    function arrayRemove(arr, value) { 
     
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
     return (<>
         <Button onClick={unlogin}>Unlogin</Button>
         <Button onClick={deleteUser}>delete</Button>
@@ -164,7 +238,13 @@ const PostPage = () => {
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">
                         <Accordion.Item eventKey="1">
-                            <Accordion.Header>{topic.title}</Accordion.Header>
+                            <Accordion.Header onClick={(e) =>{
+                                handleUpdateRead(e, topic.id)
+                            }}>{topic.title}<div>    -----------:{unreadIds && unreadIds.map((id) => <>
+                                {topic.id === id && 'unread'}
+                            </>)}
+                            </div>
+                            </Accordion.Header>
                             <Accordion.Body>{topic.text}</Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
@@ -179,21 +259,4 @@ const PostPage = () => {
 export default PostPage;
 
 
-
-function updateUnreadPosts(session, postIds) {
-    var requestOptions = {
-        method: 'PUT', headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + session
-        },
-        body: JSON.stringify(postIds),
-        redirect: 'follow'
-    };
-    fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
-        .then(response => response.text())
-        .then((result) => {
-            console.log('result; ' + result);
-        })
-        .catch(error => console.log('error', error));
-}
 

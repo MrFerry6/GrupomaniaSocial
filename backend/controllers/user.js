@@ -127,6 +127,28 @@ exports.modifyUnread = (req,res) =>{
     });
   });
 })}
+exports.modifyRead = (req,res) =>{
+  const userId = req.auth.userId;
+  User.findOne({where:{ id: userId }})
+  .then((user) => {
+    console.log('User found');
+    user.update({
+      readPosts: req.body
+    })
+
+    .then(() =>{
+      console.log('User Updated!!!')
+      res.status(200).json({
+        user
+    })
+  })
+  .catch(() => {
+    console.log('Error: User not found !!!')
+    res.status(404).json({
+      error: new Error('Not found').message
+    });
+  });
+})}
 function createSequelize() {
   return new Sequelize({
     database: 'mydb',
