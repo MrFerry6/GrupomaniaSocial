@@ -16,11 +16,11 @@ module.exports = (sequelize) => {//de
         },  
         readPosts: {
             type: Sequelize.JSON,
-            allowNull: true
+            allowNull: false
         },
         unreadPosts: {
             type: Sequelize.JSON,
-            allowNull: true
+            allowNull: false
         }
     },
         {

@@ -49,33 +49,31 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-                console.log(user.user.readPost);
-                if(!user.user.readPost){
-                    console.log('Nothing read!!')
-                } 
+                console.log(user.user.unreadPosts);
+               
                 
-                if(!user.user.unreadPost && postIds.length > -1 ){
-                    console.log('Nothing unread!!')
+                if(user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0 ){
                     console.log('PostIds:  '+postIds);
-                    var raw = []
-                    for(const id of postIds){
-                        raw.push(id)
-                    }
                   
-                    var requestOptions = {
-                      method: 'PUT', headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer " + session
-                    },
-                      body: JSON.stringify( postIds),
-                      redirect: 'follow'
-                    };
-                    fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
-                    .then(response => response.text())
-                    .then((result) => {
-                      console.log('result; '+result); 
-                    })
-                    .catch(error => console.log('error', error));
+                    updateUnreadPosts(session, postIds);
+                }
+                if(user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 &&  postIds.length > 0 ){
+                    console.log('Post at unread: ' + user.user.unreadPosts)
+                    for(let id of postIds){
+                        if(!user.user.unreadPosts.includes(id)){
+                            user.user.unreadPosts.push(id);
+                        }
+                    }
+                    updateUnreadPosts(session, user.user.unreadPosts);
+                }
+                if(user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 &&  postIds.length > 0 ){
+                    console.log('MIELDA!!!!!!!!!!!!!!!!!!')
+                    for(let id of postIds){
+                        if(!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)){
+                            user.user.unreadPosts.push(id);
+                        }
+                    }
+                    updateUnreadPosts(session, user.user.unreadPosts);
                 }
             })
             .catch(error => console.log('error', error));
@@ -145,15 +143,7 @@ const PostPage = () => {
         window.sessionStorage.removeItem('session')
         window.location.reload(false);
     }
-    //const jsonString = JSON.stringify(postTopicst);
-    //const jsonObject = JSON.parse(jsonString);
-    //console.log('String:  '+jsonString);
-
-    //console.log('Object:  '+jsonObject);
-
-    //console.log('Paramenter: ' + jsonObject.text)
-    //const datapostTopicst = JSON.parse(stringpostTopicst);
-
+    
     return (<>
         <Button onClick={unlogin}>Unlogin</Button>
         <Button onClick={deleteUser}>delete</Button>
@@ -189,4 +179,21 @@ const PostPage = () => {
 export default PostPage;
 
 
+
+function updateUnreadPosts(session, postIds) {
+    var requestOptions = {
+        method: 'PUT', headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + session
+        },
+        body: JSON.stringify(postIds),
+        redirect: 'follow'
+    };
+    fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
+        .then(response => response.text())
+        .then((result) => {
+            console.log('result; ' + result);
+        })
+        .catch(error => console.log('error', error));
+}
 

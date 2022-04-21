@@ -17,7 +17,9 @@ const body = req.body;
     .then((hash) => {
       User.create({
         email: body.email,
-        password: hash
+        password: hash,
+        readPosts: [],
+        unreadPosts: []
       })
         .then((user) => {
           console.log("User saved !!!")
