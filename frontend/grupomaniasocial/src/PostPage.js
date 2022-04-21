@@ -7,8 +7,6 @@ const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
     const [postBody, setPostBody] = useState([
         {
-            title: '',
-            text: ''
         }
     ]);
     const [postIds, setpostIds] = useState();
@@ -92,14 +90,24 @@ const PostPage = () => {
         setPostBody(
             {
                 title: event.target.value,
-                text: postBody.text
+                text: postBody.text,
+                image: postBody.image
             });
     }
     function handleTextChange(event) {
         setPostBody(
             {
                 title: postBody.title,
-                text: event.target.value
+                text: event.target.value,
+                image: postBody.image
+            });
+    }
+    function handleImageChange(event) {
+        setPostBody(
+            {
+                title: postBody.title,
+                text: postBody.text,
+                image: event.target.files[0]
             });
     }
     function sendPost() {
@@ -127,12 +135,12 @@ const PostPage = () => {
     }
     function deleteUser() {
         const session = window.sessionStorage.getItem('session')
-       
+
 
         var requestOptions = {
             method: 'DELETE',
             headers: {
-                "Content-Type": "application/json",            
+                "Content-Type": "application/json",
                 "Authorization": "Bearer " + session
             },
             redirect: 'follow'
@@ -226,15 +234,19 @@ const PostPage = () => {
         <Button onClick={unlogin}>Unlogin</Button>
         <Button onClick={deleteUser}>delete</Button>
         <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" >
                 <Form.Label>title</Form.Label>
                 <Form.Control type="text" placeholder="Title" onChange={handleTitleChange} />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Group className="mb-3" >
                 <Form.Label>post</Form.Label>
                 <Form.Control as="textarea" rows={5} onChange={handleTextChange} />
+                <Form.Group>
+                    <Form.Label>image</Form.Label>
+                    <Form.Control type='file' accept="image/,.png,.jpg" onChange={handleImageChange} />
+                </Form.Group>
+                
                 <Button onClick={sendPost}>Send</Button>
-                <Button>Media</Button>
             </Form.Group>
         </Form>
         <div>
