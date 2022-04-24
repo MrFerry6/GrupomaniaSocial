@@ -12,6 +12,9 @@ conectMySqlDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use('/images', express.static(process.cwd() + '/images'));
+
 app.use('/api/auth', userRoutes);
 app.use('/api/users', postRoutes);
 module.exports = app;

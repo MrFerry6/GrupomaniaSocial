@@ -111,12 +111,11 @@ const PostPage = () => {
             });
     }
     function sendPost() {
-        let session = window.sessionStorage.getItem('session')
-        var raw = JSON.stringify({
-            "title": postBody.title,
-            "text": postBody.text,
-            //"session": session
-        });
+        /*const session = window.sessionStorage.getItem('session');
+        var formdata = new FormData();
+        formdata.append("image", postBody.image);
+        formdata.append("title", postBody.title);
+        formdata.append("text", postBody.text);
 
         var requestOptions = {
             method: 'POST',
@@ -124,13 +123,33 @@ const PostPage = () => {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + session
             },
-            body: raw,
+            body: formdata,
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3001/api/users/post", requestOptions)//chek the route
+        fetch("http://localhost:3001/api/users/post", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => console.log('After send image: ' + result))
+            .catch(error => console.log('error', error));*/
+
+        const session = window.sessionStorage.getItem('session')
+        var formdata = new FormData();
+        formdata.append("image", postBody.image);
+        formdata.append("title", postBody.title);
+        formdata.append("text", postBody.text);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: 
+                {"Authorization": "Bearer " + session},
+                        
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:3001/api/users/post", requestOptions)
+            .then(response => response.text())
+            .then(/*result => console.log(result)*/)
             .catch(error => console.log('error', error));
     }
     function deleteUser() {
@@ -245,7 +264,7 @@ const PostPage = () => {
                     <Form.Label>image</Form.Label>
                     <Form.Control type='file' accept="image/,.png,.jpg" onChange={handleImageChange} />
                 </Form.Group>
-                
+
                 <Button onClick={sendPost}>Send</Button>
             </Form.Group>
         </Form>
