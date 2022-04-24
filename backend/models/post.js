@@ -15,6 +15,10 @@ module.exports = (sequelize) => {
         userId: {
             type: Sequelize.STRING,
             allowNull: false,
+        },
+        image:{
+            type: Sequelize.STRING,
+            allowNull: true
         }
         
     },

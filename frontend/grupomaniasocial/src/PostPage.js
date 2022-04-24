@@ -149,7 +149,7 @@ const PostPage = () => {
 
         fetch("http://localhost:3001/api/users/post", requestOptions)
             .then(response => response.text())
-            .then(/*result => console.log(result)*/)
+            .then(result => console.log(result))
             .catch(error => console.log('error', error));
     }
     function deleteUser() {

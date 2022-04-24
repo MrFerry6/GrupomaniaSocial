@@ -4,11 +4,14 @@ const Post= require(`../models/post`)(sequelize);
 
 exports.post = (req, res, next) => {
     const body = req.body;
-
+    let imageUrl = null;
+    if(!body.image)
+    {imageUrl = JSON.stringify(req.file.path)}
     Post.create({
         userId: req.auth.userId,
         title: body.title,
         text: body.text,
+        image: imageUrl
     })
         .then((post) => {
             console.log("Post saved !!!")
