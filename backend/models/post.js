@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
         image:{
             type: Sequelize.STRING,
             allowNull: true
+        },
+        video:{
+            type: Sequelize.STRING,
+            allowNull: true
         }
         
     },

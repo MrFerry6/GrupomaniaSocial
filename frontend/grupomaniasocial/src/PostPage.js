@@ -91,7 +91,8 @@ const PostPage = () => {
             {
                 title: event.target.value,
                 text: postBody.text,
-                image: postBody.image
+                image: postBody.image,
+                video: postBody.video
             });
     }
     function handleTextChange(event) {
@@ -99,41 +100,33 @@ const PostPage = () => {
             {
                 title: postBody.title,
                 text: event.target.value,
-                image: postBody.image
+                image: postBody.image,                
+                video: postBody.video,
             });
     }
     function handleImageChange(event) {
         setPostBody(
             {
                 title: postBody.title,
-                text: postBody.text,
-                image: event.target.files[0]
+                text: postBody.text, 
+                image: event.target.files[0],
+                video: postBody.video
+            });
+    }
+    function handleVideoChange(event) {
+        setPostBody(
+            {
+                title: postBody.title,
+                text: postBody.text,                
+                image: postBody.image,
+                video: event.target.files[0]
             });
     }
     function sendPost() {
-        /*const session = window.sessionStorage.getItem('session');
-        var formdata = new FormData();
-        formdata.append("image", postBody.image);
-        formdata.append("title", postBody.title);
-        formdata.append("text", postBody.text);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + session
-            },
-            body: formdata,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost:3001/api/users/post", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log('After send image: ' + result))
-            .catch(error => console.log('error', error));*/
 
         const session = window.sessionStorage.getItem('session')
         var formdata = new FormData();
+        formdata.append("video", postBody.video);
         formdata.append("image", postBody.image);
         formdata.append("title", postBody.title);
         formdata.append("text", postBody.text);
@@ -262,7 +255,9 @@ const PostPage = () => {
                 <Form.Control as="textarea" rows={5} onChange={handleTextChange} />
                 <Form.Group>
                     <Form.Label>image</Form.Label>
-                    <Form.Control type='file' accept="image/,.png,.jpg" onChange={handleImageChange} />
+                    <Form.Control type='file' accept="image/,.png,.jpg" onChange={handleImageChange} />                    
+                    <Form.Label>video</Form.Label>
+                    <Form.Control type='file' accept="video/,.avi,.gif,.mov" onChange={handleVideoChange} />
                 </Form.Group>
 
                 <Button onClick={sendPost}>Send</Button>
