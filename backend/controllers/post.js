@@ -7,9 +7,10 @@ exports.post = (req, res, next) => {
     let imageUrl = null;
     let videoUrl = null;
     if(!body.image)
-    {imageUrl = JSON.stringify(req.file.path)}
+    {imageUrl = req.protocol + '://' + req.get('host')+ '/' + req.file.path}
+
     if(!body.video)
-    {videoUrl = JSON.stringify(req.file.path)}
+    {videoUrl =  req.protocol + '://' + req.get('host')+ '/' + req.file.path}
     Post.create({
         userId: req.auth.userId,
         title: body.title,

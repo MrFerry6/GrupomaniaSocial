@@ -1,14 +1,11 @@
 
-import { Form, Button, Accordion } from 'react-bootstrap';
-
+import { Form, Button, Accordion, Image, ResponsiveEmbed } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
+import ReactPlayer from 'react-player/lazy';
 
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
-    const [postBody, setPostBody] = useState([
-        {
-        }
-    ]);
+    const [postBody, setPostBody] = useState([{}]);
     const [postIds, setpostIds] = useState();
     const [unreadIds, setUnreadIds] = useState();
     const [readIds, setReadIds] = useState();
@@ -100,7 +97,7 @@ const PostPage = () => {
             {
                 title: postBody.title,
                 text: event.target.value,
-                image: postBody.image,                
+                image: postBody.image,
                 video: postBody.video,
             });
     }
@@ -108,7 +105,7 @@ const PostPage = () => {
         setPostBody(
             {
                 title: postBody.title,
-                text: postBody.text, 
+                text: postBody.text,
                 image: event.target.files[0],
                 video: postBody.video
             });
@@ -117,14 +114,14 @@ const PostPage = () => {
         setPostBody(
             {
                 title: postBody.title,
-                text: postBody.text,                
+                text: postBody.text,
                 image: postBody.image,
                 video: event.target.files[0]
             });
     }
     function sendPost() {
         let url = "http://localhost:3001/api/users/postImage";
-        if(!postBody.image){
+        if (!postBody.image) {
             url = "http://localhost:3001/api/users/postVideo"
         }
         const session = window.sessionStorage.getItem('session')
@@ -136,9 +133,9 @@ const PostPage = () => {
 
         var requestOptions = {
             method: 'POST',
-            headers: 
-                {"Authorization": "Bearer " + session},
-                        
+            headers:
+                { "Authorization": "Bearer " + session },
+
             body: formdata,
             redirect: 'follow'
         };
@@ -258,9 +255,9 @@ const PostPage = () => {
                 <Form.Control as="textarea" rows={5} onChange={handleTextChange} />
                 <Form.Group>
                     <Form.Label>image</Form.Label>
-                    <Form.Control type='file' accept="image/,.png,.jpg" onChange={handleImageChange} />                    
+                    <Form.Control type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange} />
                     <Form.Label>video</Form.Label>
-                    <Form.Control type='file' accept="video/,.avi,.gif,.mov" onChange={handleVideoChange} />
+                    <Form.Control type='file' accept="video/,.mov" onChange={handleVideoChange} />
                 </Form.Group>
 
                 <Button onClick={sendPost}>Send</Button>
@@ -278,7 +275,11 @@ const PostPage = () => {
                             </>)}
                                 </div>
                             </Accordion.Header>
-                            <Accordion.Body>{topic.text}</Accordion.Body>
+                            <Accordion.Body>
+                                <ReactPlayer url={topic.video} controls={true}></ReactPlayer>
+                                <Image src={topic.image}></Image>
+                                <div>{topic.text}</div>
+                            </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
                 ))}

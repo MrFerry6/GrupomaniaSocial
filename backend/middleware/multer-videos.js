@@ -1,9 +1,7 @@
 const multer = require('multer');
 
 const MIME_TYPES = {
-  'video/gif': 'jpg',
-  'video/avi': 'avi',
-  'image/mov': 'mov'
+  'image/mov': 'mov',
 };
 
 const videoStorage = multer.diskStorage({

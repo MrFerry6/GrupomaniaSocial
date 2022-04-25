@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/images', express.static(process.cwd() + '/images'));
+app.use('/videos', express.static(process.cwd() + '/videos'));
 
 app.use('/api/auth', userRoutes);
 app.use('/api/users', postRoutes);
