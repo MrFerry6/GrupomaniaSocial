@@ -5,7 +5,8 @@ const auth = require('../middleware/auth')
 const multerImages = require('../middleware/multer-images');
 const multerVideos = require('../middleware/multer-videos');
 
-router.post('/post',auth, multerImages, postCtrl.post);
+router.post('/postImage',auth,multerImages, postCtrl.post);
+router.post('/postVideo',auth,multerVideos, postCtrl.post);
 router.get('/getPosts',auth, postCtrl.getPosts);
 
 

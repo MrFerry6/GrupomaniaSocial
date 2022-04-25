@@ -6,7 +6,7 @@ const MIME_TYPES = {
   'image/mov': 'mov'
 };
 
-const storage = multer.diskStorage({
+const videoStorage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, './videos');
   },
@@ -16,4 +16,4 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage}).single('video');
+module.exports = multer({storage: videoStorage}).single('video');

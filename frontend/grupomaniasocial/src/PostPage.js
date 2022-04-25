@@ -123,7 +123,10 @@ const PostPage = () => {
             });
     }
     function sendPost() {
-
+        let url = "http://localhost:3001/api/users/postImage";
+        if(!postBody.image){
+            url = "http://localhost:3001/api/users/postVideo"
+        }
         const session = window.sessionStorage.getItem('session')
         var formdata = new FormData();
         formdata.append("video", postBody.video);
@@ -140,7 +143,7 @@ const PostPage = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:3001/api/users/post", requestOptions)
+        fetch(url, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
