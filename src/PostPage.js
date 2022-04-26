@@ -256,18 +256,18 @@ const PostPage = () => {
             {postTopics &&
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header onClick={(e) => {
+                        <Accordion.Item key={"item"+topic.id} eventKey="1">
+                        <Accordion.Header key={"header"+topic.id} onClick={(e) => {
                                 handleUpdateRead(e, topic.id)
-                            }}>{topic.title}<div>    -----------:{unreadIds && unreadIds.map((id) => <>
+                            }}>{topic.title}<div key={'title'+topic.id}>    -----------:{unreadIds && unreadIds.map((id) => <>
                                 {topic.id === id && 'unread'}
                             </>)}
                                 </div>
                             </Accordion.Header>
                             <Accordion.Body>
-                                <ReactPlayer url={topic.video} controls={true}></ReactPlayer>
-                                <Image src={topic.image}></Image>
-                                <div>{topic.text}</div>
+                                <ReactPlayer key={"player"+topic.id} url={topic.video} controls={true}></ReactPlayer>
+                                <Image key={"image"+topic.id} src={topic.image}></Image>
+                                <div key={"text"+topic.id}>{topic.text}</div>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
