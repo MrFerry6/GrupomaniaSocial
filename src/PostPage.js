@@ -51,8 +51,8 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-
-                if (user) {
+                
+                if (postIds) {
                     if (user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
 
                         updateUnreadPosts(session, postIds);
