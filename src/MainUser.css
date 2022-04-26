@@ -1,0 +1,9 @@
+
+.navbar-link{
+    font-size:large;
+    font-weight: bold;
+    color: rgb(229, 73, 17);
+}
+.navbar-link:hover{
+    color: rgb(190, 73, 17);
+}

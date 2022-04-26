@@ -1,8 +1,9 @@
 import NewUserForm from './NewUserForm';
 import PostPage from './PostPage';
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar, Container, Image } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-
+import NavLogo from './NavbarLogo.png'
+import '../src/MainUser.css'
 
 
 const MainUser = () => {
@@ -56,13 +57,27 @@ const MainUser = () => {
   if (islogged === false) {
     return (
       <>
+      
+
         <header>
-          <Navbar bg="secondary" variant="light">
+
+          <Navbar>
             <Container>
-              <Navbar.Brand href="#home">GRUPOMANIA-SOCIAL</Navbar.Brand>
+              <Container>
+              <Navbar.Brand href="#"  >                
+                <Image src={NavLogo}
+                 style={{  
+                   width: '200px',
+                  height: '40px' }} />
+              </Navbar.Brand>
+              </Container>
               <Nav className="me-auto">
-                <Nav.Link onClick={setSingupMode}>SINGUP</Nav.Link>
-                <Nav.Link onClick={setLoginMode}>LOGIN</Nav.Link>
+                <Nav.Link onClick={setSingupMode}>
+                  <h4 className='navbar-link'>SINGUP</h4>
+                </Nav.Link>
+                <Nav.Link onClick={setLoginMode}>
+                  <h4 className='navbar-link'>LOGIN</h4>
+                </Nav.Link>
               </Nav>
             </Container>
           </Navbar>
@@ -79,11 +94,3 @@ const MainUser = () => {
 }
 
 export default MainUser;
- /* const signedBody = {
-   token : sessionStorage.getItem('token')
- }
- const signedRequetOptions = setRequestOptions(signedBody);
- fetch(authUrl, signedRequetOptions)
- .then(result =>{
-   console.log(result);
- })*/
