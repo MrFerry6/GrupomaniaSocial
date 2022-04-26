@@ -1,5 +1,5 @@
 
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import React, { useState } from 'react';
 
 
@@ -42,24 +42,44 @@ const NewUserForm = ({ isSingup }) => {
       .catch(error => console.log('error', error));
   };
   return (
+    <>
+    <Container style={{ 
+      marginTop:'2rem'
+       }}>
     <Form>
+      <Container>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange} />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
+        <Form.Label style={{  
+                  fontSize:'medium',
+                  fontWeight:'900',
+                  color: 'rgb(229, 73, 17)'}}
+                  >EMAIL ADDRESS</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange}
+         style={{  
+          fontSize:'small',
+          fontWeight:'700',
+          color: 'black',}} />
+      
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label style={{  
+                  fontSize:'medium',
+                  fontWeight:'900',
+                  color: 'rgb(229, 73, 17)'}}
+                  >PASSWORD</Form.Label>
         <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
       </Form.Group>
-
-      <Button variant="primary" onClick={handleSubmit}>
+      <Button variant="primary" onClick={handleSubmit}
+       style={{ 
+         backgroundColor:'rgb(299, 73, 17)'
+         
+       }}>
         {isSingup ? 'SINGUP' : 'LOGIN'}
       </Button>
-    </Form>);
-}
+      </Container>
+     
+    </Form></Container></>
+  )}
 
 export default NewUserForm;
 
