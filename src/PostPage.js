@@ -1,13 +1,16 @@
 
-import { Form, Button, Accordion, Image } from 'react-bootstrap';
+import { Form, Button, Accordion, Image, Navbar, Container, Nav } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
+import NavLogo from './NavbarLogo.png'
 
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
     const [postBody, setPostBody] = useState([{}]);
     const [postIds, setpostIds] = useState();
     const [unreadIds, setUnreadIds] = useState();
+    const [isImage, setIsImage] = useState(false);
+    const [isVideo, setIsVideo] = useState(false);
 
     useEffect(() => {
 
@@ -51,7 +54,7 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-                
+
                 if (postIds) {
                     if (user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
 
@@ -107,6 +110,14 @@ const PostPage = () => {
                 image: event.target.files[0],
                 video: postBody.video
             });
+        if (postBody.image) {
+            setIsImage(true);
+            setIsVideo(false);
+        }
+        if (!postBody.video && !postBody.image) {
+            setIsImage(true);
+            setIsVideo(true);
+        }
     }
     function handleVideoChange(event) {
         setPostBody(
@@ -116,6 +127,14 @@ const PostPage = () => {
                 image: postBody.image,
                 video: event.target.files[0]
             });
+        if (postBody.video) {
+            setIsImage(false);
+            setIsVideo(true);
+        }
+        if (!postBody.video && !postBody.image) {
+            setIsImage(true);
+            setIsVideo(true);
+        }
     }
     function sendPost() {
         let url = "http://localhost:3001/api/users/postImage";
@@ -198,7 +217,7 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }
 
-   
+
 
     function handleUpdateRead(event, id) {
 
@@ -232,42 +251,106 @@ const PostPage = () => {
         });
     }
     return (<>
-        <Button onClick={unlogin}>Unlogin</Button>
-        <Button onClick={deleteUser}>delete</Button>
-        <Form>
-            <Form.Group className="mb-3" >
-                <Form.Label>title</Form.Label>
-                <Form.Control type="text" placeholder="Title" onChange={handleTitleChange} />
-            </Form.Group>
-            <Form.Group className="mb-3" >
-                <Form.Label htmlFor='post-input'>post</Form.Label>
-                <Form.Control id='post-input' as="textarea" rows={5} onChange={handleTextChange} />
-                <Form.Group>
-                    <Form.Label htmlFor='image-input'>image</Form.Label>
-                    <Form.Control id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange} />
-                    <Form.Label htmlFor='video-input'>video</Form.Label>
-                    <Form.Control id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange} />
+        <Navbar>
+            <Container>
+                <Container>
+                    <Navbar.Brand href="#"  >
+                        <Image src={NavLogo}
+                            style={{
+                                width: '200px',
+                                height: '40px'
+                            }} />
+                    </Navbar.Brand>
+                </Container>
+                <Nav className="me-auto">
+                    <Nav.Link onClick={unlogin}>
+                        <h4 className='navbar-link'>LOGOUT</h4>
+                    </Nav.Link>
+                    <Nav.Link onClick={deleteUser}>
+                        <h4 className='navbar-link'>DELETE</h4>
+                    </Nav.Link>
+                </Nav>
+            </Container>
+        </Navbar>
+        <Container>
+            <Form>
+                <Form.Group className="mb-3" >
+                    <Form.Label style={{
+                        fontSize: 'medium',
+                        fontWeight: '900',
+                        color: 'rgb(229, 73, 17)'
+                    }}>TITLE</Form.Label>
+                    <Form.Control type="text" placeholder="Title" onChange={handleTitleChange} />
                 </Form.Group>
+                <Form.Group className="mb-3" >
+                    <Form.Label style={{
+                        fontSize: 'medium',
+                        fontWeight: '900',
+                        color: 'rgb(229, 73, 17)'
+                    }} htmlFor='post-input'>POST</Form.Label>
+                    <Form.Control id='post-input' as="textarea" rows={5} onChange={handleTextChange} />
+                    <Form.Group>
+                        <Container style={{
+                            marginTop: '1rem',
+                            display: 'flex',
+                            flexDirection: 'column'
 
-                <Button onClick={sendPost}>Send</Button>
-            </Form.Group>
-        </Form>
+                        }}>
+                            <Form.Label htmlFor='image-input'
+                                style={{
+                                    fontSize: 'medium',
+                                    fontWeight: '900',
+                                    color: 'rgb(229, 73, 17)'
+                                }}
+                            >IMAGE</Form.Label>
+                            <Form.Control disabled={isImage} id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange}
+                                style={{
+                                    fontSize: 'small',
+                                    fontWeight: '700',
+                                    color: 'black',
+                                    backgroundColor: 'rgb(229, 190, 177)'
+                                }} />
+                            <Form.Label htmlFor='video-input'
+                                style={{
+                                    marginTop: '0.5rem',
+                                    fontSize: 'medium',
+                                    fontWeight: '900',
+                                    color: 'rgb(229, 73, 17)'
+                                }}
+                            >VIDEO</Form.Label>
+                            <Form.Control disabled={isVideo} id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange}
+                                style={{
+                                    fontSize: 'small',
+                                    fontWeight: '700',
+                                    color: 'black',
+                                    backgroundColor: 'rgb(229, 190, 177)'
+                                }} />
+                        </Container>
+                    </Form.Group>
+                </Form.Group>
+                <Container>
+                    <Button onClick={sendPost}
+                        style={{
+                            backgroundColor: 'rgb(299, 73, 17)'
+                        }}>PUBLISH POST</Button></Container>
+            </Form>
+        </Container>
         <div id='post-container'>
             {postTopics &&
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">
-                        <Accordion.Item key={"item"+topic.id} eventKey="1">
-                        <Accordion.Header key={"header"+topic.id} onClick={(e) => {
+                        <Accordion.Item key={"item" + topic.id} eventKey="1">
+                            <Accordion.Header key={"header" + topic.id} onClick={(e) => {
                                 handleUpdateRead(e, topic.id)
-                            }}>{topic.title}<div key={'title'+topic.id}>    -----------:{unreadIds && unreadIds.map((id) => <>
+                            }}>{topic.title}<div key={'title' + topic.id}>    -----------:{unreadIds && unreadIds.map((id) => <>
                                 {topic.id === id && 'unread'}
                             </>)}
                                 </div>
                             </Accordion.Header>
                             <Accordion.Body>
-                                <ReactPlayer key={"player"+topic.id} url={topic.video} controls={true}></ReactPlayer>
-                                <Image key={"image"+topic.id} src={topic.image}></Image>
-                                <div key={"text"+topic.id}>{topic.text}</div>
+                                <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer>
+                                <Image key={"image" + topic.id} src={topic.image}></Image>
+                                <div key={"text" + topic.id}>{topic.text}</div>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>

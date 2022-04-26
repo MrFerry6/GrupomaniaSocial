@@ -71,8 +71,7 @@ const NewUserForm = ({ isSingup }) => {
       </Form.Group>
       <Button variant="primary" onClick={handleSubmit}
        style={{ 
-         backgroundColor:'rgb(299, 73, 17)'
-         
+         backgroundColor:'rgb(299, 73, 17)'         
        }}>
         {isSingup ? 'SINGUP' : 'LOGIN'}
       </Button>
