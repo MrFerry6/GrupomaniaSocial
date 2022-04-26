@@ -7,3 +7,7 @@
 .navbar-link:hover{
     color: rgb(190, 73, 17);
 }
+body{
+    display: flex;
+    flex-direction: column;
+}
