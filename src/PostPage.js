@@ -251,13 +251,13 @@ const PostPage = () => {
                 <Form.Control type="text" placeholder="Title" onChange={handleTitleChange} />
             </Form.Group>
             <Form.Group className="mb-3" >
-                <Form.Label>post</Form.Label>
-                <Form.Control as="textarea" rows={5} onChange={handleTextChange} />
+                <Form.Label htmlFor='post-input'>post</Form.Label>
+                <Form.Control id='post-input' as="textarea" rows={5} onChange={handleTextChange} />
                 <Form.Group>
-                    <Form.Label>image</Form.Label>
-                    <Form.Control type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange} />
-                    <Form.Label>video</Form.Label>
-                    <Form.Control type='file' accept="video/,.mov" onChange={handleVideoChange} />
+                    <Form.Label htmlFor='image-input'>image</Form.Label>
+                    <Form.Control id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange} />
+                    <Form.Label  htmlFor='video-input'>video</Form.Label>
+                    <Form.Control id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange} />
                 </Form.Group>
 
                 <Button onClick={sendPost}>Send</Button>
