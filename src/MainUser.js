@@ -1,55 +1,60 @@
 import NewUserForm from './NewUserForm';
 import PostPage from './PostPage';
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 
 const MainUser = () => {
 
-  const [islogged, setIsLogged] = useState(false); 
+  const [islogged, setIsLogged] = useState(false);
+  const [isSingup, setSingup] = useState(true);
 
   const authUrl = 'http://localhost:3001/api/auth/auth'
   useEffect(() => {
-     var myHeaders = new Headers();
-     myHeaders.append("Content-Type", "application/json");
-   
-     var raw = JSON.stringify({
-       token: window.sessionStorage.getItem('session')
-     });
-   
-     var requestOptions = {
-       method: 'POST',
-       headers: myHeaders,
-       body: raw,
-       redirect: 'follow'
-     };
+    const token = window.sessionStorage.getItem('session')
+    if (token) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-     fetch(authUrl , requestOptions)
-     .then(response => response.text())
-     .then((result) => {
-        const user = JSON.parse(result);
-        setIsLogged(user.logged);
-          
-     })
-     .catch(error => console.log('error', error));
-   });
+      var raw = JSON.stringify({
+        token: window.sessionStorage.getItem('session')
+      });
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch(authUrl, requestOptions)
+        .then(response => response.text())
+        .then((result) => {
+          const user = JSON.parse(result);
+          setIsLogged(user.logged);
+
+        })
+        .catch(error => console.log('error', error));
+    }
+  }, []
+  );
 
 
-  const [isSingup, setSingup] = useState(true);
-  function setLoginMode(){
+  function setLoginMode() {
     setSingup(false);
   }
-  function setSingupMode(){
+  function setSingupMode() {
     setSingup(true);
   }
-  
-  if(islogged === true){
-  return (
-    <PostPage/>
-  )};
-  if(islogged === false){
-    return(
+
+  if (islogged === true) {
+    return (
+      <PostPage />
+    )
+  };
+  if (islogged === false) {
+    return (
       <>
         <header>
           <Navbar bg="secondary" variant="light">
@@ -62,23 +67,23 @@ const MainUser = () => {
             </Container>
           </Navbar>
         </header>
-  
+
         <main>
           <NewUserForm isSingup={isSingup} />
         </main>
-  
+
       </>
     )
   };
-  
+
 }
 
 export default MainUser;
  /* const signedBody = {
-    token : sessionStorage.getItem('token')
-  }
-  const signedRequetOptions = setRequestOptions(signedBody);
-  fetch(authUrl, signedRequetOptions)
-  .then(result =>{
-    console.log(result);
-  })*/
+   token : sessionStorage.getItem('token')
+ }
+ const signedRequetOptions = setRequestOptions(signedBody);
+ fetch(authUrl, signedRequetOptions)
+ .then(result =>{
+   console.log(result);
+ })*/

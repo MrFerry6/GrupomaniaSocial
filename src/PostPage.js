@@ -1,5 +1,5 @@
 
-import { Form, Button, Accordion, Image, ResponsiveEmbed } from 'react-bootstrap';
+import { Form, Button, Accordion, Image } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 
@@ -8,7 +8,6 @@ const PostPage = () => {
     const [postBody, setPostBody] = useState([{}]);
     const [postIds, setpostIds] = useState();
     const [unreadIds, setUnreadIds] = useState();
-    const [readIds, setReadIds] = useState();
 
     useEffect(() => {
 
@@ -52,29 +51,28 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-                console.log(user.user.unreadPosts);
 
+                if (!user) {
+                    if (user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
 
-                if (user.user.unreadPosts.length === 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
-                    console.log('PostIds:  ' + postIds);
-
-                    updateUnreadPosts(session, postIds);
-                }
-                if (user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
-                    for (let id of postIds) {
-                        if (!user.user.unreadPosts.includes(id)) {
-                            user.user.unreadPosts.push(id);
-                        }
+                        updateUnreadPosts(session, postIds);
                     }
-                    updateUnreadPosts(session, user.user.unreadPosts);
-                }
-                if (user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
-                    for (let id of postIds) {
-                        if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
-                            user.user.unreadPosts.push(id);
+                    if (user.user.unreadPosts.length > 0 && user.user.readPosts.length === 0 && postIds.length > 0) {
+                        for (let id of postIds) {
+                            if (!user.user.unreadPosts.includes(id)) {
+                                user.user.unreadPosts.push(id);
+                            }
                         }
+                        updateUnreadPosts(session, user.user.unreadPosts);
                     }
-                    updateUnreadPosts(session, user.user.unreadPosts);
+                    if (user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
+                        for (let id of postIds) {
+                            if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
+                                user.user.unreadPosts.push(id);
+                            }
+                        }
+                        updateUnreadPosts(session, user.user.unreadPosts);
+                    }
                 }
             })
             .catch(error => console.log('error', error));
@@ -180,7 +178,6 @@ const PostPage = () => {
         fetch('http://localhost:3001/api/auth/modifyUnread', requestOptions)
             .then(response => response.text())
             .then((result) => {
-                console.log('result; ' + result);
                 const user = JSON.parse(result);
                 setUnreadIds(user.user.unreadPosts);
             })
@@ -197,18 +194,11 @@ const PostPage = () => {
         };
         fetch('http://localhost:3001/api/auth/modifyRead', requestOptions)
             .then(response => response.text())
-            .then((result) => {
-                console.log('result; ' + result);
-                //const user = JSON.parse(result);
-                //setUnreadIds(user.user.unreadPosts);
-            })
+            .then((result) => { })
             .catch(error => console.log('error', error));
     }
 
-    function checkIds(unreadId, postId) {
-        if (unreadId === postId) { return true }
-        else { return }
-    }
+   
 
     function handleUpdateRead(event, id) {
 
@@ -226,7 +216,6 @@ const PostPage = () => {
             .then(response => response.text())
             .then((result) => {
                 const user = JSON.parse(result);
-                console.log('handleUpdate: ' + result)
                 const unread = arrayRemove(user.user.unreadPosts, id);
                 let read = user.user.readPosts;
                 if (!read.includes(id)) {
@@ -239,7 +228,7 @@ const PostPage = () => {
     function arrayRemove(arr, value) {
 
         return arr.filter(function (ele) {
-            return ele != value;
+            return ele !== value;
         });
     }
     return (<>
@@ -256,14 +245,14 @@ const PostPage = () => {
                 <Form.Group>
                     <Form.Label htmlFor='image-input'>image</Form.Label>
                     <Form.Control id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange} />
-                    <Form.Label  htmlFor='video-input'>video</Form.Label>
+                    <Form.Label htmlFor='video-input'>video</Form.Label>
                     <Form.Control id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange} />
                 </Form.Group>
 
                 <Button onClick={sendPost}>Send</Button>
             </Form.Group>
         </Form>
-        <div>
+        <div id='post-container'>
             {postTopics &&
                 postTopics.map((topic) => (
                     <Accordion key={topic.id} defaultActiveKey="0">

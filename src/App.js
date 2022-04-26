@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import MainUser from './MainUser';
-import PostPage from './PostPage';
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function App() {
   return (
