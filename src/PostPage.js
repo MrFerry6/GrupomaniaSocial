@@ -4,16 +4,34 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import NavLogo from './NavbarLogo.png';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { use } from 'bcrypt/promises';
 
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
-    const [postBody, setPostBody] = useState([{}]);
+    const [postBody, setPostBody] = useState([{
+        title: null,
+        text: null,
+        image: null,
+        video: null
+    }]);
     const [postIds, setpostIds] = useState();
     const [unreadIds, setUnreadIds] = useState();
     const [isImage, setIsImage] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
+    const [disableForm, setDisableForm] = useState(true);
 
+    useEffect(() =>{
+
+        if(postBody.title && isValidPostContent()){
+            setDisableForm(false)
+        }
+        if(!postBody.title && isValidPostContent()){
+            setDisableForm(true)
+        }
+        if(postBody.title && !isValidPostContent()){
+            setDisableForm(true)
+        }
+
+    },[postBody])
     useEffect(() =>{
         console.log("image: "+postBody.image)
         console.log("video: "+postBody.video)
@@ -103,8 +121,13 @@ const PostPage = () => {
 
     }, [postIds])
 
-
-
+    function isValidPostContent()
+    {
+        if(postBody.text || postBody.image || postBody.video)
+        {return true}
+        else{return false}
+    }
+    
     function handleTitleChange(event) {
         setPostBody(
             {
@@ -286,7 +309,7 @@ const PostPage = () => {
                         fontWeight: '900',
                         color: 'rgb(229, 73, 17)'
                     }}>TITLE</Form.Label>
-                    <Form.Control type="text" placeholder="Title" onChange={handleTitleChange} />
+                    <Form.Control type="text"  onChange={handleTitleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label style={{
@@ -338,7 +361,9 @@ const PostPage = () => {
                     <Button onClick={sendPost}
                         style={{
                             backgroundColor: 'rgb(299, 73, 17)'
-                        }}>PUBLISH POST</Button></Container>
+                        }}
+                        disabled={disableForm}>PUBLISH POST</Button>
+                        </Container>
             </Form>
         </Container>
         <Container style={{
