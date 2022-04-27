@@ -8,10 +8,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
     const [postBody, setPostBody] = useState([{
-        title: null,
-        text: null,
-        image: null,
-        video: null
     }]);
     const [postIds, setpostIds] = useState();
     const [unreadIds, setUnreadIds] = useState();
@@ -415,7 +411,7 @@ const PostPage = () => {
                                     {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer> }
                                     
                                     <Image key={"image" + topic.id} src={topic.image}></Image>
-                                    <div key={"text" + topic.id}>{topic.text}</div>
+                                    <div key={"text" + topic.id}>{topic.text ==='undefined' ? '': topic.text}</div>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
