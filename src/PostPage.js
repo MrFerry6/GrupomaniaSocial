@@ -412,7 +412,8 @@ const PostPage = () => {
                                     </Container>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer>
+                                    {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer> }
+                                    
                                     <Image key={"image" + topic.id} src={topic.image}></Image>
                                     <div key={"text" + topic.id}>{topic.text}</div>
                                 </Accordion.Body>
