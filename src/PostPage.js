@@ -19,30 +19,26 @@ const PostPage = () => {
     const [isVideo, setIsVideo] = useState(false);
     const [disableForm, setDisableForm] = useState(true);
 
-    useEffect(() =>{
+    useEffect(() => {
 
-        if(postBody.title && isValidPostContent()){
+        if (postBody.title && isValidPostContent()) {
             setDisableForm(false)
         }
-        if(!postBody.title && isValidPostContent()){
+        if (!postBody.title && isValidPostContent()) {
             setDisableForm(true)
         }
-        if(postBody.title && !isValidPostContent()){
+        if (postBody.title && !isValidPostContent()) {
             setDisableForm(true)
         }
 
-    },[postBody])
-    useEffect(() =>{
-        console.log("image: "+postBody.image)
-        console.log("video: "+postBody.video)
-        if (postBody.video  && !postBody.image) {
-            console.log('Molt be !!!')
+    }, [postBody])
+    useEffect(() => {
+        if (postBody.video && !postBody.image) {
             setIsImage(true);
 
             setIsVideo(false);
-        }  
-        if (!postBody.video && postBody.image ) {
-            console.log("okis")
+        }
+        if (!postBody.video && postBody.image) {
             setIsImage(false);
             setIsVideo(true);
         }
@@ -50,7 +46,7 @@ const PostPage = () => {
             setIsImage(false);
             setIsVideo(false);
         }
-    },[postBody.image,postBody.video])
+    }, [postBody.image, postBody.video])
     useEffect(() => {
 
         const session = window.sessionStorage.getItem('session')
@@ -121,13 +117,11 @@ const PostPage = () => {
 
     }, [postIds])
 
-    function isValidPostContent()
-    {
-        if(postBody.text || postBody.image || postBody.video)
-        {return true}
-        else{return false}
+    function isValidPostContent() {
+        if (postBody.text || postBody.image || postBody.video) { return true }
+        else { return false }
     }
-    
+
     function handleTitleChange(event) {
         setPostBody(
             {
@@ -154,7 +148,7 @@ const PostPage = () => {
                 image: event.target.files[0],
                 video: postBody.video
             });
-     
+
     }
     function handleVideoChange(event) {
         setPostBody(
@@ -309,7 +303,7 @@ const PostPage = () => {
                         fontWeight: '900',
                         color: 'rgb(229, 73, 17)'
                     }}>TITLE</Form.Label>
-                    <Form.Control type="text"  onChange={handleTitleChange} />
+                    <Form.Control type="text" onChange={handleTitleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label style={{
@@ -333,12 +327,19 @@ const PostPage = () => {
                                 }}
                             >IMAGE</Form.Label>
                             <Form.Control disabled={isImage} id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange}
-                                style={{
-                                    fontSize: 'small',
-                                    fontWeight: '700',
-                                    color: 'black',
-                                    backgroundColor: 'rgb(229, 190, 177)'
-                                }} />
+                                  style={
+                                    isImage ? {
+                                        backgroundColor: 'rgb(229, 190, 177)',
+                                        fontSize: 'small',
+                                        fontWeight: '700',
+                                        color: 'black',
+                                    } : {                                        
+                                         backgroundColor: 'rgb(229, 73, 17)',
+                                         fontSize: 'small',
+                                        fontWeight: '700',
+                                        color: 'white', }
+                                }
+                                 />
                             <Form.Label htmlFor='video-input'
                                 style={{
                                     marginTop: '0.5rem',
@@ -348,12 +349,19 @@ const PostPage = () => {
                                 }}
                             >VIDEO</Form.Label>
                             <Form.Control disabled={isVideo} id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange}
-                                style={{
-                                    fontSize: 'small',
-                                    fontWeight: '700',
-                                    color: 'black',
-                                    backgroundColor: 'rgb(229, 190, 177)'
-                                }} />
+                                style={
+                                    isVideo ? {
+                                        backgroundColor: 'rgb(229, 190, 177)',
+                                        fontSize: 'small',
+                                        fontWeight: '700',
+                                        color: 'black',
+                                    } : {                                        
+                                         backgroundColor: 'rgb(229, 73, 17)',
+                                         fontSize: 'small',
+                                        fontWeight: '700',
+                                        color: 'white', }
+                                }
+                            />
                         </Container>
                     </Form.Group>
                 </Form.Group>
@@ -363,7 +371,7 @@ const PostPage = () => {
                             backgroundColor: 'rgb(299, 73, 17)'
                         }}
                         disabled={disableForm}>PUBLISH POST</Button>
-                        </Container>
+                </Container>
             </Form>
         </Container>
         <Container style={{
@@ -398,7 +406,7 @@ const PostPage = () => {
                                         >{topic.title}</h4>
                                         {unreadIds &&
                                             unreadIds.map((id) => <> {
-                                                topic.id === id &&  <i className="bi bi-patch-exclamation" key={'icon'+topic.id}></i>
+                                                topic.id === id && <i className="bi bi-patch-exclamation" key={'icon' + topic.id}></i>
                                             }</>
                                             )}
                                     </Container>
