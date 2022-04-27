@@ -62,13 +62,13 @@ const MainUser = () => {
         <header>
 
           <Navbar>
-            <Container>
+            <Container  >
               <Container>
-              <Navbar.Brand href="#"  >                
-                <Image src={NavLogo}
-                 style={{  
-                   width: '200px',
-                  height: '40px' }} />
+              <Navbar.Brand href="#" >                
+                <Image className='logo' src={NavLogo}    
+                style={{  
+                   width: '85%',
+                  height: '100%' }}  />
               </Navbar.Brand>
               </Container>
               <Nav className="me-auto">

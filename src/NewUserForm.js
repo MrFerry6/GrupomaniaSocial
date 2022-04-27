@@ -35,50 +35,54 @@ const NewUserForm = ({ isSingup }) => {
     fetch(isSingup ? singupUrl : loginUrl, requestOptions)
       .then(response => response.text())
       .then((result) => {
-        console.log('result; '+result);
+        console.log('result; ' + result);
         sessionStorage.setItem('session', result)
-        window.location.reload(false);    
+        window.location.reload(false);
       })
       .catch(error => console.log('error', error));
   };
   return (
     <>
-    <Container style={{ 
-      marginTop:'2rem'
-       }}>
-    <Form>
-      <Container>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label style={{  
-                  fontSize:'medium',
-                  fontWeight:'900',
-                  color: 'rgb(229, 73, 17)'}}
-                  >EMAIL ADDRESS</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange}
-         style={{  
-          fontSize:'small',
-          fontWeight:'700',
-          color: 'black',}} />
-      
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label style={{  
-                  fontSize:'medium',
-                  fontWeight:'900',
-                  color: 'rgb(229, 73, 17)'}}
-                  >PASSWORD</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
-      </Form.Group>
-      <Button variant="primary" onClick={handleSubmit}
-       style={{ 
-         backgroundColor:'rgb(299, 73, 17)'         
-       }}>
-        {isSingup ? 'SINGUP' : 'LOGIN'}
-      </Button>
-      </Container>
-     
-    </Form></Container></>
-  )}
+      <Container style={{
+        marginTop: '2rem'
+      }}>
+        <Form>
+          <Container>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label style={{
+                fontSize: 'medium',
+                fontWeight: '900',
+                color: 'rgb(229, 73, 17)'
+              }}
+              >EMAIL ADDRESS</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange}
+                style={{
+                  fontSize: 'small',
+                  fontWeight: '700',
+                  color: 'black',
+                }} />
+
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label style={{
+                fontSize: 'medium',
+                fontWeight: '900',
+                color: 'rgb(229, 73, 17)'
+              }}
+              >PASSWORD</Form.Label>
+              <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
+            </Form.Group>
+            <Button variant="primary" onClick={handleSubmit}
+              style={{
+                backgroundColor: 'rgb(299, 73, 17)'
+              }}>
+              {isSingup ? 'SINGUP' : 'LOGIN'}
+            </Button>
+          </Container>
+
+        </Form></Container></>
+  )
+}
 
 export default NewUserForm;
 
