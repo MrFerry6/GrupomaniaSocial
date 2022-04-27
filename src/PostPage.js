@@ -2,7 +2,8 @@
 import { Form, Button, Accordion, Image, Navbar, Container, Nav } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import NavLogo from './NavbarLogo.png'
+import NavLogo from './NavbarLogo.png';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
@@ -344,18 +345,19 @@ const PostPage = () => {
         }}>
         {postTopics &&
             postTopics.map((topic) => (
-                <Container style={{
+                <Container key={"container"+topic.id} style={{
                     marginTop:"0.5rem",
-                    marginBottom:"0.5rem"
+                    marginBottom:"0.5rem",
                 }}>
                     <Accordion key={topic.id} defaultActiveKey="0">
                         <Accordion.Item key={"item" + topic.id} eventKey="1">
-                            <Accordion.Header key={"header" + topic.id} onClick={(e) => {
-                                handleUpdateRead(e, topic.id)
-                            }}>{topic.title}<div key={'title' + topic.id}>    -----------:{unreadIds && unreadIds.map((id) => <>
-                                {topic.id === id && 'unread'}
-                            </>)}
-                                </div>
+                            <Accordion.Header key={"header" + topic.id}
+                             onClick={(e) => {handleUpdateRead(e, topic.id)
+                            }}>
+                                <h4
+                                style={{
+                                }}
+                                >{topic.title}</h4>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer>

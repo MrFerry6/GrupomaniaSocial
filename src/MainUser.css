@@ -1,6 +1,6 @@
 
 .navbar-link{
-    font-size:large;
+    font-size:medium;
     font-weight: bold;
     color: rgb(229, 73, 17);
 }
@@ -10,4 +10,12 @@
 body{
     display: flex;
     flex-direction: column;
+}
+.accordion-button:not(.collapsed) {
+    color: #000000; background-image:linear-gradient(to bottom right,rgb(229, 176, 156), rgb(229, 128, 104));
+}
+.accordion-button.collapsed{    
+    color: #ffffff;
+    background-image:linear-gradient(to bottom right,rgb(229, 73, 17), rgb(190, 63, 17));
+    ;
 }
