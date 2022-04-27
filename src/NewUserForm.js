@@ -1,6 +1,7 @@
 
 import { Form, Button, Container } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import userEvent from '@testing-library/user-event';
 
 
 const NewUserForm = ({ isSingup }) => {
@@ -13,6 +14,19 @@ const NewUserForm = ({ isSingup }) => {
       password: ''
     }
   ]);
+  const [disableButton, setDisableButton] = useState(true);
+
+  useEffect(() => {
+    if(validateEmail(body.email) && body.password){
+      setDisableButton(false);
+    }
+    if(!validateEmail(body.email) || !body.password){
+      setDisableButton(true);
+    }
+
+
+  }, [body])
+
   function handleEmailChange(event) {
     setBody(
       {
@@ -40,6 +54,14 @@ const NewUserForm = ({ isSingup }) => {
         window.location.reload(false);
       })
       .catch(error => console.log('error', error));
+  };
+
+  function validateEmail(email) {
+    if(email){
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );}
+    else{return false}
   };
   return (
     <>
@@ -72,7 +94,7 @@ const NewUserForm = ({ isSingup }) => {
               >PASSWORD</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
             </Form.Group>
-            <Button variant="primary" onClick={handleSubmit}
+            <Button variant="primary" onClick={handleSubmit} disabled={disableButton}
               style={{
                 backgroundColor: 'rgb(299, 73, 17)'
               }}>
