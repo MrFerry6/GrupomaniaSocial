@@ -79,7 +79,7 @@ const NewUserForm = ({ isSingup }) => {
               {isSingup ? 'SINGUP' : 'LOGIN'}
             </Button>
           </Container>
-
+3
         </Form></Container></>
   )
 }

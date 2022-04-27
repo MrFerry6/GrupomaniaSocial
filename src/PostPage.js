@@ -257,8 +257,8 @@ const PostPage = () => {
                     <Navbar.Brand href="#"  >
                         <Image src={NavLogo}
                             style={{
-                                width: '200px',
-                                height: '40px'
+                                width: '85%',
+                                height: '100%'
                             }} />
                     </Navbar.Brand>
                 </Container>
@@ -335,9 +335,19 @@ const PostPage = () => {
                         }}>PUBLISH POST</Button></Container>
             </Form>
         </Container>
-        <div id='post-container'>
-            {postTopics &&
-                postTopics.map((topic) => (
+        <Container style={{
+            marginTop:'2.5rem',
+            marginBottom:'5rem',
+            borderTopStyle:'double',
+            borderBottomStyle:'double',
+            borderColor:'rgb(229, 73, 17)'
+        }}>
+        {postTopics &&
+            postTopics.map((topic) => (
+                <Container style={{
+                    marginTop:"0.5rem",
+                    marginBottom:"0.5rem"
+                }}>
                     <Accordion key={topic.id} defaultActiveKey="0">
                         <Accordion.Item key={"item" + topic.id} eventKey="1">
                             <Accordion.Header key={"header" + topic.id} onClick={(e) => {
@@ -354,8 +364,9 @@ const PostPage = () => {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                ))}
-        </div>
+                </Container>
+            ))}
+            </Container>
 
 
     </>)
