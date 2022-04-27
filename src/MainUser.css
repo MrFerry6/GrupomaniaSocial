@@ -12,7 +12,8 @@ body{
     flex-direction: column;
 }
 .accordion-button:not(.collapsed) {
-    color: #000000; background-image:linear-gradient(to bottom right,rgb(229, 176, 156), rgb(229, 128, 104));
+    color: #000000;
+     background-image:linear-gradient(to bottom right,rgb(229, 176, 156), rgb(229, 128, 104));
 }
 .accordion-button.collapsed{    
     color: #ffffff;

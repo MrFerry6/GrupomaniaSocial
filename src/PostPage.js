@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import NavLogo from './NavbarLogo.png';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { use } from 'bcrypt/promises';
 
 const PostPage = () => {
     const [postTopics, setpostTopics] = useState();
@@ -12,6 +13,7 @@ const PostPage = () => {
     const [unreadIds, setUnreadIds] = useState();
     const [isImage, setIsImage] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
+    const [isUnread, setIsUnread] = useState(false)
 
     useEffect(() => {
 
@@ -337,40 +339,52 @@ const PostPage = () => {
             </Form>
         </Container>
         <Container style={{
-            marginTop:'2.5rem',
-            marginBottom:'5rem',
-            borderTopStyle:'double',
-            borderBottomStyle:'double',
-            borderColor:'rgb(229, 73, 17)'
+            marginTop: '2.5rem',
+            marginBottom: '5rem',
+            borderTopStyle: 'double',
+            borderBottomStyle: 'double',
+            borderColor: 'rgb(229, 73, 17)'
         }}>
-        {postTopics &&
-            postTopics.map((topic) => (
-                <Container key={"container"+topic.id} style={{
-                    marginTop:"0.5rem",
-                    marginBottom:"0.5rem",
-                }}>
-                    <Accordion key={topic.id} defaultActiveKey="0">
-                        <Accordion.Item key={"item" + topic.id} eventKey="1">
-                            <Accordion.Header key={"header" + topic.id}
-                             onClick={(e) => {handleUpdateRead(e, topic.id)
-                            }}>
-                                <h4
-                                style={{
-                                    fontSize:'medium',
-                                    fontWeight:'bold'
-                                }}
-                                >{topic.title}</h4>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer>
-                                <Image key={"image" + topic.id} src={topic.image}></Image>
-                                <div key={"text" + topic.id}>{topic.text}</div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Container>
-            ))}
-            </Container>
+            {postTopics &&
+                postTopics.map((topic) => (
+                    <Container key={"container" + topic.id} style={{
+                        marginTop: "0.5rem",
+                        marginBottom: "0.5rem",
+                    }}>
+                        <Accordion key={topic.id} defaultActiveKey="0">
+                            <Accordion.Item key={"item" + topic.id} eventKey="1">
+                                <Accordion.Header key={"header" + topic.id}
+                                    onClick={(e) => {
+                                        handleUpdateRead(e, topic.id)
+                                    }}><Container
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                        }}>
+                                        <h4
+                                            style={{
+                                                fontSize: 'medium',
+                                                fontWeight: 'bold',
+                                                width: '90%'
+                                            }}
+                                        >{topic.title}</h4>
+                                        {unreadIds &&
+                                            unreadIds.map((id) => <> {
+                                                topic.id === id &&  <i className="bi bi-patch-exclamation" key={'icon'+topic.id}></i>
+                                            }</>
+                                            )}
+                                    </Container>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true}></ReactPlayer>
+                                    <Image key={"image" + topic.id} src={topic.image}></Image>
+                                    <div key={"text" + topic.id}>{topic.text}</div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    </Container>
+                ))}
+        </Container>
 
 
     </>)
