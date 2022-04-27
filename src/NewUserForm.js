@@ -1,7 +1,6 @@
 
 import { Form, Button, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-import userEvent from '@testing-library/user-event';
 
 
 const NewUserForm = ({ isSingup }) => {
@@ -95,9 +94,18 @@ const NewUserForm = ({ isSingup }) => {
               <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
             </Form.Group>
             <Button variant="primary" onClick={handleSubmit} disabled={disableButton}
-              style={{
-                backgroundColor: 'rgb(299, 73, 17)'
-              }}>
+              style={
+                disableButton ? {
+                  backgroundColor: 'rgb(229, 190, 177)',
+                  fontSize: 'small',
+                  fontWeight: '700',
+                  color: 'black',
+              } : {                                        
+                   backgroundColor: 'rgb(229, 73, 17)',
+                   fontSize: 'small',
+                  fontWeight: '700',
+                  color: 'white', }
+          }>
               {isSingup ? 'SINGUP' : 'LOGIN'}
             </Button>
           </Container>

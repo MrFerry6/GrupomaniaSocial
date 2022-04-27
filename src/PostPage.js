@@ -178,7 +178,7 @@ const PostPage = () => {
 
         fetch(url, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result =>  window.location.reload(false) )
             .catch(error => console.log('error', error));
     }
     function deleteUser() {
@@ -362,11 +362,20 @@ const PostPage = () => {
                     </Form.Group>
                 </Form.Group>
                 <Container>
-                    <Button onClick={sendPost}
-                        style={{
-                            backgroundColor: 'rgb(299, 73, 17)'
-                        }}
-                        disabled={disableForm}>PUBLISH POST</Button>
+                    <Button onClick={sendPost}  disabled={disableForm}
+                         style={
+                            disableForm ? {
+                              backgroundColor: 'rgb(229, 190, 177)',
+                              fontSize: 'small',
+                              fontWeight: '700',
+                              color: 'black',
+                          } : {                                        
+                               backgroundColor: 'rgb(229, 73, 17)',
+                               fontSize: 'small',
+                              fontWeight: '700',
+                              color: 'white', }
+                      }
+                       >PUBLISH POST</Button>
                 </Container>
             </Form>
         </Container>
