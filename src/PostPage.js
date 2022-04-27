@@ -13,8 +13,26 @@ const PostPage = () => {
     const [unreadIds, setUnreadIds] = useState();
     const [isImage, setIsImage] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
-    const [isUnread, setIsUnread] = useState(false)
 
+    useEffect(() =>{
+        console.log("image: "+postBody.image)
+        console.log("video: "+postBody.video)
+        if (postBody.video  && !postBody.image) {
+            console.log('Molt be !!!')
+            setIsImage(true);
+
+            setIsVideo(false);
+        }  
+        if (!postBody.video && postBody.image ) {
+            console.log("okis")
+            setIsImage(false);
+            setIsVideo(true);
+        }
+        if (!postBody.video && !postBody.image) {
+            setIsImage(false);
+            setIsVideo(false);
+        }
+    },[postBody.image,postBody.video])
     useEffect(() => {
 
         const session = window.sessionStorage.getItem('session')
@@ -113,14 +131,7 @@ const PostPage = () => {
                 image: event.target.files[0],
                 video: postBody.video
             });
-        if (postBody.image) {
-            setIsImage(true);
-            setIsVideo(false);
-        }
-        if (!postBody.video && !postBody.image) {
-            setIsImage(true);
-            setIsVideo(true);
-        }
+     
     }
     function handleVideoChange(event) {
         setPostBody(
@@ -130,14 +141,6 @@ const PostPage = () => {
                 image: postBody.image,
                 video: event.target.files[0]
             });
-        if (postBody.video) {
-            setIsImage(false);
-            setIsVideo(true);
-        }
-        if (!postBody.video && !postBody.image) {
-            setIsImage(true);
-            setIsVideo(true);
-        }
     }
     function sendPost() {
         let url = "http://localhost:3001/api/users/postImage";
