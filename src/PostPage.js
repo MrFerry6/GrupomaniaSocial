@@ -356,6 +356,8 @@ const PostPage = () => {
                             }}>
                                 <h4
                                 style={{
+                                    fontSize:'medium',
+                                    fontWeight:'bold'
                                 }}
                                 >{topic.title}</h4>
                             </Accordion.Header>
