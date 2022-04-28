@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+-SETUP PROJECT FILES:
+-At the folder that the project will install, click Git Bash Here at the contextual menu.
+-At the console type:
+-  git init.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- git clone https://github.com/MrFerry6/GrupomaniaSocial
 
-## Available Scripts
+- Open project with visual studio or your favourite code editor.
+-Open the terminal and at the main root of the project type ‘npm install’ .
+-At backend folder, create two folders named ‘images’ ’videos’ .
 
-In the project directory, you can run:
+-MySQL INSTALATION :
 
-### `npm start`
+-Download and install MySQL software:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-https://dev.mysql.com/downloads/installer/
+-At configuration, select development computer.
+-Tick at ‘Show Advanced and Logging Options’.
+-Set a password for Root Account.
+-Finish all configurations through the Installation tool.
+-Open MySQL Workbench tool.
+-At MySQL Connections select the database that was created previously.
+-Click at the Shemas tab, if some DB examples exists, delete them.
+-Al File menu, click on Open SQL Script and select  the doom file located at the project backend/DB folder..
+-Click at lightning bolt icon to execute the script (is at the top of the script).
+-Restart the Db. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-TO EXECUTE THE BACKEND:
+-In a terminal at the main root of the project type ‘cd backend’.
+-type ‘nodemon server’.
+-TO EXECUTE THE FRONTEND:
+-In a terminal at the main root of the project type ‘npm run start’.
+-If this error appears at the terminal: 
+ "error:0308010C:digital envelope routines::unsupported"
+-Change the parameter ‘start’ at the script sections at the package.json file to this:
+	- "start": "react-scripts --openssl-legacy-provider start"
 
-### `npm test`
+-USING THE SITE:
+-At the navigator, go to this address ‘localhost:3000’ .
+-Create an user or login if one exist, swapping the options at the top nav var.
+-An a correct email and password must be implemented to activate the button.
+-Once the user is logged,  can made a post and se the post list if they exist.
+-to create a new post, title and text or video or image, must be implemented to activate the send button.
+-To see a content post, click on the title to open the content, an alert icon appears at the post that are unread.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
