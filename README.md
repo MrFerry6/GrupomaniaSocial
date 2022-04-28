@@ -1,9 +1,9 @@
-#-SETUP PROJECT FILES:
-#-At the folder that the project will install, click Git Bash Here at the contextual menu.
-#-At the console type:
-#-  git init.
+-SETUP PROJECT FILES:  
+-At the folder that the project will install, click Git Bash Here at the contextual menu.  
+-At the console type:  
+-  git init.  
 
-#- git clone https://github.com/MrFerry6/GrupomaniaSocial
+- git clone https://github.com/MrFerry6/GrupomaniaSocial  
 
 - Open project with visual studio or your favourite code editor.
 -Open the terminal and at the main root of the project type ‘npm install’ .
