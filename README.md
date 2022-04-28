@@ -25,6 +25,7 @@
 -Click at lightning bolt icon to execute the script (is at the top of the script).  
 -Restart the Db.  
 
+
 -TO EXECUTE THE BACKEND:  
 -In a terminal at the main root of the project type ‘cd backend’.  
 -type ‘nodemon server’.  
@@ -34,6 +35,7 @@
  "error:0308010C:digital envelope routines::unsupported"  
 -Change the parameter ‘start’ at the script sections at the package.json file to this:  
 	- "start": "react-scripts --openssl-legacy-provider start"  
+
 
 -USING THE SITE:  
 -At the navigator, go to this address ‘localhost:3000’ .  
