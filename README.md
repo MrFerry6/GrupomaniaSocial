@@ -6,7 +6,7 @@
 - git clone https://github.com/MrFerry6/GrupomaniaSocial  
 
 - Open project with visual studio or your favourite code editor.  
--Open the terminal and at the main root of the project type ‘npm install’ .
+-Open the terminal and at the main root of the project type ‘npm install’ .  
 -At backend folder, create two folders named ‘images’ ’videos’ .  
 
 -MySQL INSTALATION :  
