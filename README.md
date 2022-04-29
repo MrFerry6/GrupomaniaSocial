@@ -7,7 +7,7 @@
 
 - Open project with visual studio or your favourite code editor.  
 -Open the terminal and at the main root of the project type ‘npm install’ .  
--At backend folder, create two folders named ‘images’ ’videos’ .
+-At backend folder, create two folders named ‘images’ ’videos’ .  
 -At backend folder, create a file .env and create two variables, 'DB_USER' and 'DB_PASS' and set with the user pass that was created for the database.   
 
 -MySQL INSTALATION :  
