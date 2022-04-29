@@ -99,6 +99,14 @@ const PostPage = () => {
                         }
                         updateUnreadPosts(session, user.user.unreadPosts);
                     }
+                    if (user.user.unreadPosts.length === 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
+                        for (let id of postIds) {
+                            if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
+                                user.user.unreadPosts.push(id);
+                            }
+                        }
+                        updateUnreadPosts(session, user.user.unreadPosts);
+                    }
                     if (user.user.unreadPosts.length > 0 && user.user.readPosts.length > 0 && postIds.length > 0) {
                         for (let id of postIds) {
                             if (!user.user.unreadPosts.includes(id) && !user.user.readPosts.includes(id)) {
