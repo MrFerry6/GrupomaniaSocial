@@ -35,8 +35,8 @@ function createSequelize() {
   return new Sequelize({
     database: 'mydb',
     host: 'localhost',
-    username: 'root',
-    password: '1234',
+    username: process.env.DB_USER, 
+    password: process.env.DB_PASS,
     dialect: 'mysql'
   });
 }
@@ -49,13 +49,6 @@ function setHeaders() {
     next();
   });
 }
-
-function MySqlConnect() {
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '1234'
-  });
 
   connection.connect((error) => {
     if (error) {

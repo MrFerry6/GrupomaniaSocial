@@ -151,9 +151,9 @@ exports.modifyRead = (req,res) =>{
 function createSequelize() {
   return new Sequelize({
     database: 'mydb',
-    host: 'localhost',
-    username: 'root',
-    password: '1234',
+    host: 'localhost',    
+    username: process.env.DB_USER, 
+    password: process.env.DB_PASS,
     dialect: 'mysql'
   });
 }
