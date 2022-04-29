@@ -18,6 +18,8 @@ app.use('/videos', express.static(process.cwd() + '/videos'));
 
 app.use('/api/auth', userRoutes);
 app.use('/api/users', postRoutes);
+
+
 module.exports = app;
 
 function conectMySqlDB() {
@@ -32,11 +34,12 @@ function conectMySqlDB() {
 }
 
 function createSequelize() {
+  require('dotenv').config();
   return new Sequelize({
     database: 'mydb',
     host: 'localhost',
     username: process.env.DB_USER, 
-    password: process.env.DB_PASS,
+    password: process.env.DB_PASS,   
     dialect: 'mysql'
   });
 }
@@ -50,12 +53,3 @@ function setHeaders() {
   });
 }
 
-  connection.connect((error) => {
-    if (error) {
-      console.log('Conetion to MySql DB not succes !!!');
-      console.log(error.message);
-      return;
-    }
-    console.log('Conected to MySql DB !');
-  });
-}

@@ -48,7 +48,8 @@ exports.getPosts = (req, res, next) => {
 }
 
 
-function createSequelize() {
+function createSequelize() {    
+    require('dotenv').config();
     return new Sequelize({
         database: 'mydb',
         host: 'localhost',
