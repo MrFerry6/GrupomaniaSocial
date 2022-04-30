@@ -6,6 +6,7 @@ const postRoutes = require('./routes/post')
 const bodyParser = require('body-parser');
 const app = express();
 const sequelize = createSequelize();
+const helmet = require("helmet");
 
 setHeaders();
 conectMySqlDB();
@@ -19,7 +20,7 @@ app.use('/videos', express.static(process.cwd() + '/videos'));
 app.use('/api/auth', userRoutes);
 app.use('/api/users', postRoutes);
 
-
+app.use(helmet());
 module.exports = app;
 
 function conectMySqlDB() {
