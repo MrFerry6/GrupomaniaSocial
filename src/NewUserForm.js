@@ -98,7 +98,10 @@ const NewUserForm = ({ isSingup }) => {
                 fontWeight: '900',
                 color: 'rgb(124, 42, 12)'
               }}
-              >PASSWORD</Form.Label>
+              >PASSWORD
+              <h6>Bettween 8/25 characters,</h6>
+              <h6>Uppercase and lowercase required, </h6>
+              </Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
             </Form.Group>
             <Button variant="primary" onClick={handleSubmit} disabled={disableButton}
