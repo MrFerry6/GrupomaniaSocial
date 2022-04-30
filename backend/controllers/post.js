@@ -31,7 +31,7 @@ exports.post = (req, res, next) => {
         })
 }
 exports.getPosts = (req, res, next) => {
-    Post.findAll()
+    Post.findAll({ order: [['updated_At', 'DESC']]})
         .then((post) => {
             console.log('Posts found !')
             res.status(200).json(post);
