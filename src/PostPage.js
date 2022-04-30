@@ -425,7 +425,7 @@ const PostPage = () => {
                                 <Accordion.Body>
                                     {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true} width="100%" height="100%"></ReactPlayer> }
                                     
-                                    <Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>
+                                    {topic.image &&<Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>}
                                     <div key={"text" + topic.id}>{topic.text ==='undefined' ? '': topic.text}</div>
                                 </Accordion.Body>
                             </Accordion.Item>
