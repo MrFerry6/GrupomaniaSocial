@@ -300,12 +300,13 @@ const PostPage = () => {
         <Container>
             <Form>
                 <Form.Group className="mb-3" >
-                    <Form.Label style={{
+                    <Form.Label htmlFor='post-title'
+                     style={{
                         fontSize: 'medium',
                         fontWeight: '900',
-                        color: 'rgb(229, 73, 17)'
+                        color: 'rgb(229, 73, 17)',
                     }}>TITLE</Form.Label>
-                    <Form.Control type="text" onChange={handleTitleChange} />
+                    <Form.Control  id='post-title' type="text" onChange={handleTitleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label style={{
@@ -319,7 +320,6 @@ const PostPage = () => {
                             marginTop: '1rem',
                             display: 'flex',
                             flexDirection: 'column'
-
                         }}>
                             <Form.Label htmlFor='image-input'
                                 style={{
