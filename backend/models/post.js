@@ -1,3 +1,4 @@
+const { type } = require('@testing-library/user-event/dist/type');
 const { TIMESTAMP } = require('mysql/lib/protocol/constants/types');
 const { Sequelize } = require('sequelize');
 
@@ -25,6 +26,9 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: true
         },
+        comments: {
+            type: Sequelize.JSON}
+            ,
         createdAt: { type: Sequelize.DATE, field: 'created_at' },
         updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
         deletedAt: { type: Sequelize.DATE, field: 'deleted_at' }        

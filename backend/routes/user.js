@@ -11,5 +11,6 @@ router.get('/findUser', auth, userCtrl.getUser);
 router.put('/modifyUnread', auth, userCtrl.modifyUnread);
 router.put('/modifyRead', auth, userCtrl.modifyRead);
 router.delete('/delete',auth, userCtrl.deleteUser);
+router.put('/addComent',auth, userCtrl.addComent);
 
 module.exports = router;
