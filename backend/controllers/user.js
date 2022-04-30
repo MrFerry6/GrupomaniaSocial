@@ -3,18 +3,27 @@ const sequelize = createSequelize();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require(`../models/user`)(sequelize);
+var passwordValidator = require('password-validator');
+const PasswordValidator = require('password-validator');
 
 
 exports.singup = (req, res, next) => {
 const body = req.body;
-  if (!validateEmail(body.email)) {
-    console.log('Error: not valid email !!!');
-    return res.status(400).json({
-      error: new Error('Bad Request').message
-    })
-  }
-  bcrypt.hash(body.password, 10)
-    .then((hash) => {
+if (!validateEmail(body.email)) {
+  console.log('Error: not valid email !!!');
+  return res.status(400).json({
+    error: new Error('Bad Request').message
+  })
+}
+
+if (!validatePassword(body.password)) {
+  console.log('Error: not valid password !!!');
+  return res.status(400).json({
+    error: new Error('Bad Request').message
+  })
+}
+bcrypt.hash(body.password, 10)
+  .then((hash) => {
       User.create({
         email: body.email,
         password: hash,
@@ -163,6 +172,15 @@ function validateEmail(email) {
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
 };
+function validatePassword(password){
+  var passShema = new PasswordValidator();
+  passShema.is().min(8);
+  passShema.is().max(25);
+  passShema.has().uppercase();
+  passShema.has().lowercase();
+  passShema.has().not().spaces();
+  return passShema.validate(password);
+}
 function logUser(req, user, res) {
   bcrypt.compare(req.body.password, user.password)
     .then((valid) => {
