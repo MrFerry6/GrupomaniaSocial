@@ -1,3 +1,4 @@
+const { TIMESTAMP } = require('mysql/lib/protocol/constants/types');
 const { Sequelize } = require('sequelize');
 
 
@@ -23,10 +24,12 @@ module.exports = (sequelize) => {
         video:{
             type: Sequelize.STRING,
             allowNull: true
-        }
-        
+        },
+        createdAt: { type: Sequelize.DATE, field: 'created_at' },
+        updatedAt: { type: Sequelize.DATE, field: 'updated_at' },
+        deletedAt: { type: Sequelize.DATE, field: 'deleted_at' }        
     },
         {
-            timestamps: false
+            timestamps: true
         });
 }
