@@ -3,7 +3,6 @@ const sequelize = createSequelize();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require(`../models/user`)(sequelize);
-var passwordValidator = require('password-validator');
 const PasswordValidator = require('password-validator');
 
 

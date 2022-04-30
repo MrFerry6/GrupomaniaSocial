@@ -1,7 +1,7 @@
 
 import { Form, Button, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-
+const PasswordValidator = require('password-validator');
 
 const NewUserForm = ({ isSingup }) => {
   const loginUrl = 'http://localhost:3001/api/auth/login'
@@ -16,10 +16,10 @@ const NewUserForm = ({ isSingup }) => {
   const [disableButton, setDisableButton] = useState(true);
 
   useEffect(() => {
-    if(validateEmail(body.email) && body.password){
+    if(validateEmail(body.email) && validatePassword(body.password)){
       setDisableButton(false);
     }
-    if(!validateEmail(body.email) || !body.password){
+    if(!validateEmail(body.email) || !validatePassword(body.password)){
       setDisableButton(true);
     }
 
@@ -61,6 +61,15 @@ const NewUserForm = ({ isSingup }) => {
     );}
     else{return false}
   };
+  function validatePassword(password){
+    var passShema = new PasswordValidator();
+    passShema.is().min(8);
+    passShema.is().max(25);
+    passShema.has().uppercase();
+    passShema.has().lowercase();
+    passShema.has().not().spaces();
+    return passShema.validate(password);
+  }
   return (
     <>
       <Container style={{
