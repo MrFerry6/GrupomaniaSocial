@@ -65,7 +65,7 @@ const MainUser = () => {
             <Container  >
               <Container>
               <Navbar.Brand href="#" >                
-                <Image className='logo' src={NavLogo}    
+                <Image className='logo' src={NavLogo} alt="A company logo" 
                 style={{  
                    width: '85%',
                   height: '100%' }}  />
