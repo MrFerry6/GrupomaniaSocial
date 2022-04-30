@@ -59,8 +59,8 @@ exports.login = (req, res, next) =>{
 
 exports.auth = (req, res) => {
   const token = JSON.parse(req.body.token);
-  if(jwt.verify(token.token, process.env.USER_TOKEN, )){
-    const decodedToken = jwt.verify(token.token, process.env.USER_TOKEN, );
+  if(jwt.verify(token.token, process.env.DB_USER, )){
+    const decodedToken = jwt.verify(token.token, process.env.DB_USER, );
     return res.status(200).json({
       logged : true,
       userId : decodedToken.userId//is neccesary?
@@ -193,6 +193,6 @@ function setLog(res, user, token) {
 function createToken(user) {
   return jwt.sign(
     { userId: user.id },
-    process.env.USER_TOKEN, 
+    process.env.DB_USER, 
     { expiresIn: '24h' });
 }
