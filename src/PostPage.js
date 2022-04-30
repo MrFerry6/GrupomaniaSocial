@@ -244,8 +244,6 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }
 
-
-
     function handleUpdateRead(event, id) {
 
         const session = window.sessionStorage.getItem('session')

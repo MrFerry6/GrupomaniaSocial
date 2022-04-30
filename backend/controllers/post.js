@@ -39,7 +39,7 @@ exports.getPosts = (req, res, next) => {
         }
         )
         .catch(() => {
-            console.log('Error: Sauces not found');
+            console.log('Error: Post not found');
             res.status(404).json({
                 error: new Error('Not found').message
             });
