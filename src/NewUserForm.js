@@ -72,7 +72,7 @@ const NewUserForm = ({ isSingup }) => {
               <Form.Label style={{
                 fontSize: 'medium',
                 fontWeight: '900',
-                color: 'rgb(229, 73, 17)'
+                color: 'rgb(124, 42, 12)'
               }}
               >EMAIL ADDRESS</Form.Label>
               <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange}
@@ -87,7 +87,7 @@ const NewUserForm = ({ isSingup }) => {
               <Form.Label style={{
                 fontSize: 'medium',
                 fontWeight: '900',
-                color: 'rgb(229, 73, 17)'
+                color: 'rgb(124, 42, 12)'
               }}
               >PASSWORD</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
@@ -100,7 +100,7 @@ const NewUserForm = ({ isSingup }) => {
                   fontWeight: '700',
                   color: 'black',
               } : {                                        
-                   backgroundColor: 'rgb(229, 73, 17)',
+                   backgroundColor: 'rgb(124, 42, 12)',
                    fontSize: 'small',
                   fontWeight: '700',
                   color: 'white', }

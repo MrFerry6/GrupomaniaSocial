@@ -304,7 +304,7 @@ const PostPage = () => {
                      style={{
                         fontSize: 'medium',
                         fontWeight: '900',
-                        color: 'rgb(229, 73, 17)',
+                        color: 'rgb(124, 42, 12)',
                     }}>TITLE</Form.Label>
                     <Form.Control  id='post-title' type="text" onChange={handleTitleChange} />
                 </Form.Group>
@@ -312,7 +312,7 @@ const PostPage = () => {
                     <Form.Label style={{
                         fontSize: 'medium',
                         fontWeight: '900',
-                        color: 'rgb(229, 73, 17)'
+                        color: 'rgb(124, 42, 12)'
                     }} htmlFor='post-input'>POST</Form.Label>
                     <Form.Control id='post-input' as="textarea" rows={5} onChange={handleTextChange} />
                     <Form.Group>
@@ -325,7 +325,7 @@ const PostPage = () => {
                                 style={{
                                     fontSize: 'medium',
                                     fontWeight: '900',
-                                    color: 'rgb(229, 73, 17)'
+                                    color: 'rgb(124, 42, 12)'
                                 }}
                             >IMAGE</Form.Label>
                             <Form.Control disabled={isImage} id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange}
@@ -336,7 +336,7 @@ const PostPage = () => {
                                         fontWeight: '700',
                                         color: 'black',
                                     } : {                                        
-                                         backgroundColor: 'rgb(229, 73, 17)',
+                                         backgroundColor: 'rgb(124, 42, 12)',
                                          fontSize: 'small',
                                         fontWeight: '700',
                                         color: 'white', }
@@ -347,7 +347,7 @@ const PostPage = () => {
                                     marginTop: '0.5rem',
                                     fontSize: 'medium',
                                     fontWeight: '900',
-                                    color: 'rgb(229, 73, 17)'
+                                    color: 'rgb(124, 42, 12)'
                                 }}
                             >VIDEO</Form.Label>
                             <Form.Control disabled={isVideo} id='video-input' type='file' accept="video/,.mov" onChange={handleVideoChange}
@@ -358,7 +358,7 @@ const PostPage = () => {
                                         fontWeight: '700',
                                         color: 'black',
                                     } : {                                        
-                                         backgroundColor: 'rgb(229, 73, 17)',
+                                         backgroundColor: 'rgb(124, 42, 12)',
                                          fontSize: 'small',
                                         fontWeight: '700',
                                         color: 'white', }
@@ -376,7 +376,7 @@ const PostPage = () => {
                               fontWeight: '700',
                               color: 'black',
                           } : {                                        
-                               backgroundColor: 'rgb(229, 73, 17)',
+                               backgroundColor: 'rgb(124, 42, 12)',
                                fontSize: 'small',
                               fontWeight: '700',
                               color: 'white', }
@@ -390,7 +390,7 @@ const PostPage = () => {
             marginBottom: '5rem',
             borderTopStyle: 'double',
             borderBottomStyle: 'double',
-            borderColor: 'rgb(229, 73, 17)'
+            borderColor: 'rgb(124, 42, 12)'
         }}>
             {postTopics &&
                 postTopics.map((topic) => (
