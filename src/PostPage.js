@@ -207,7 +207,8 @@ const PostPage = () => {
             };
             fetch('http://localhost:3001/api/users/addComment', requestOptions)
                 .then(response => response.text())
-                .then((result) => { })
+                .then((result) => {
+                    window.location.reload(false); })
                 .catch(error => console.log('error', error));        
         }
     }
@@ -451,8 +452,24 @@ const PostPage = () => {
                                 <Accordion.Body>
                                     {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true} width="100%" height="100%"></ReactPlayer>}
                                     {topic.image && <Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>}
-                                    <div key={"text" + topic.id}>{topic.text === 'undefined' ? '' : topic.text}</div>
+                                    <Container
+                                      style={{
+                                        marginTop: '0.5rem',
+                                        borderStyle: 'double',
+                                        borderColor: 'rgb(124, 42, 12)'
+                                    }}
+                                    > <div key={"text" + topic.id}>{topic.text === 'undefined' ? '' : topic.text}</div></Container>
+                                    {  topic.comments && topic.comments.map((comment) => <>{
+                                       <Container 
+                                       style={{
+                                        marginTop: '0.5rem',
+                                        borderStyle: 'inset',
+                                        borderColor: 'rgb(124, 42, 12)'
+                                    }}
+                                    > <div key={"coment" + topic.id}>{comment === 'undefined' ? '' : comment}</div></Container> }</>
+                                            )}
 
+                                  
                                     <Form>
                                         <Form.Group> <Form.Label htmlFor={"comment" + topic.id}
                                             style={{

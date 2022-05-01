@@ -62,7 +62,6 @@ exports.addComment = (req,res) =>{
           comments.push(post.comments[i]);
       }
       comments.push(req.body.textBox);
-      console.log(comments)
       post.update({
           comments : comments
       })
