@@ -14,7 +14,8 @@ exports.post = (req, res, next) => {
         title: body.title,
         text: body.text,
         image: imageUrl,
-        video: videoUrl
+        video: videoUrl,
+        comments: []
     })
         .then((post) => {
             console.log("Post saved !!!")
@@ -47,7 +48,38 @@ exports.getPosts = (req, res, next) => {
         );
 }
 
+exports.addComment = (req,res) =>{ 
+    const userId = req.auth.userId;
+    
+    console.log(req.body.textBox);
+    Post.findOne({where:{ id: req.body.name}})
+    .then((post) => {
+      console.log('User found');
+      var comments = [];
+      
+      for(let i=0; post.comments.length > i; i++)
+      {
+          comments.push(post.comments[i]);
+      }
+      comments.push(req.body.textBox);
+      console.log(comments)
+      post.update({
+          comments : comments
+      })
+  
+      .then(() =>{
+        console.log('Post Updated!!!')
+        res.status(200).json({
 
+      })
+    })
+    .catch(() => {
+      console.log('Error: User not found !!!')
+      res.status(404).json({
+        error: new Error('Not found').message
+      });
+    });
+  })}
 function createSequelize() {    
     require('dotenv').config();
     return new Sequelize({

@@ -8,7 +8,7 @@ const multerVideos = require('../middleware/multer-videos');
 router.post('/postImage',auth,multerImages, postCtrl.post);
 router.post('/postVideo',auth,multerVideos, postCtrl.post);
 router.get('/getPosts',auth, postCtrl.getPosts);
-
+router.put('/addComment',auth, postCtrl.addComment);
 
 
 module.exports = router;

@@ -189,12 +189,27 @@ const PostPage = () => {
             .then(result => window.location.reload(false))
             .catch(error => console.log('error', error));
     }
-    function sendComment(value){
-        
-        const textBox = document.getElementById(value.target.value);
-        if(textBox){
-        console.log(textBox.value);
-    }
+    function sendComment(value) {
+        const session = window.sessionStorage.getItem('session')
+        const textBox = document.getElementById(value.target.value).value;
+        const name = document.getElementById(value.target.value).name;
+
+        if (textBox) {console.log(textBox);
+            var requestOptions = {
+                method: 'PUT', headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + session
+                },
+                body: JSON.stringify(
+                    {textBox, name},
+                     ),
+                redirect: 'follow'
+            };
+            fetch('http://localhost:3001/api/users/addComment', requestOptions)
+                .then(response => response.text())
+                .then((result) => { })
+                .catch(error => console.log('error', error));        
+        }
     }
 
     function deleteUser() {
@@ -447,15 +462,15 @@ const PostPage = () => {
                                                 color: 'rgb(124, 42, 12)'
                                             }}
                                         >COMMENT: </Form.Label>
-                                        
-                                            <Form.Control id={"comment" + topic.id} as="textarea" name='textValue' rows={5} />
-                                            <input type="button" onClick={sendComment} value= {"comment" + topic.id}
-                                              style={{
-                                                backgroundColor: 'rgb(124, 42, 12)',
-                                                fontSize: 'small',
-                                                fontWeight: '700',
-                                                color: 'white'
-                                              }}
+
+                                            <input id={"comment" + topic.id} type="textarea" name={topic.id}  rows={5} />
+                                            <input type="button" onClick={sendComment} value={"comment" + topic.id}
+                                                style={{
+                                                    backgroundColor: 'rgb(124, 42, 12)',
+                                                    fontSize: 'small',
+                                                    fontWeight: '700',
+                                                    color: 'white'
+                                                }}
                                             />
                                         </Form.Group>
                                     </Form>

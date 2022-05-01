@@ -157,9 +157,7 @@ exports.modifyRead = (req,res) =>{
   });
 })}
 
-exports.addComent = (req,res) =>{
-  
-}
+
 
 function createSequelize() {  
   require('dotenv').config();
