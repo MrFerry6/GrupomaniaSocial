@@ -186,9 +186,17 @@ const PostPage = () => {
 
         fetch(url, requestOptions)
             .then(response => response.text())
-            .then(result =>  window.location.reload(false) )
+            .then(result => window.location.reload(false))
             .catch(error => console.log('error', error));
     }
+    function sendComment(value){
+        
+        const textBox = document.getElementById(value.target.value);
+        if(textBox){
+        console.log(textBox.value);
+    }
+    }
+
     function deleteUser() {
         const session = window.sessionStorage.getItem('session')
 
@@ -301,12 +309,12 @@ const PostPage = () => {
             <Form>
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor='post-title'
-                     style={{
-                        fontSize: 'medium',
-                        fontWeight: '900',
-                        color: 'rgb(124, 42, 12)',
-                    }}>TITLE</Form.Label>
-                    <Form.Control  id='post-title' type="text" onChange={handleTitleChange} />
+                        style={{
+                            fontSize: 'medium',
+                            fontWeight: '900',
+                            color: 'rgb(124, 42, 12)',
+                        }}>TITLE</Form.Label>
+                    <Form.Control id='post-title' type="text" onChange={handleTitleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" >
                     <Form.Label style={{
@@ -329,19 +337,20 @@ const PostPage = () => {
                                 }}
                             >IMAGE</Form.Label>
                             <Form.Control disabled={isImage} id='image-input' type='file' accept="image/,.png,.jpg,.gif" onChange={handleImageChange}
-                                  style={
+                                style={
                                     isImage ? {
                                         backgroundColor: 'rgb(229, 190, 177)',
                                         fontSize: 'small',
                                         fontWeight: '700',
                                         color: 'black',
-                                    } : {                                        
-                                         backgroundColor: 'rgb(124, 42, 12)',
-                                         fontSize: 'small',
+                                    } : {
+                                        backgroundColor: 'rgb(124, 42, 12)',
+                                        fontSize: 'small',
                                         fontWeight: '700',
-                                        color: 'white', }
+                                        color: 'white',
+                                    }
                                 }
-                                 />
+                            />
                             <Form.Label htmlFor='video-input'
                                 style={{
                                     marginTop: '0.5rem',
@@ -357,31 +366,33 @@ const PostPage = () => {
                                         fontSize: 'small',
                                         fontWeight: '700',
                                         color: 'black',
-                                    } : {                                        
-                                         backgroundColor: 'rgb(124, 42, 12)',
-                                         fontSize: 'small',
+                                    } : {
+                                        backgroundColor: 'rgb(124, 42, 12)',
+                                        fontSize: 'small',
                                         fontWeight: '700',
-                                        color: 'white', }
+                                        color: 'white',
+                                    }
                                 }
                             />
                         </Container>
                     </Form.Group>
                 </Form.Group>
                 <Container>
-                    <Button onClick={sendPost}  disabled={disableForm}
-                         style={
+                    <Button onClick={sendPost} disabled={disableForm}
+                        style={
                             disableForm ? {
-                              backgroundColor: 'rgb(229, 190, 177)',
-                              fontSize: 'small',
-                              fontWeight: '700',
-                              color: 'black',
-                          } : {                                        
-                               backgroundColor: 'rgb(124, 42, 12)',
-                               fontSize: 'small',
-                              fontWeight: '700',
-                              color: 'white', }
-                      }
-                       >PUBLISH POST</Button>
+                                backgroundColor: 'rgb(229, 190, 177)',
+                                fontSize: 'small',
+                                fontWeight: '700',
+                                color: 'black',
+                            } : {
+                                backgroundColor: 'rgb(124, 42, 12)',
+                                fontSize: 'small',
+                                fontWeight: '700',
+                                color: 'white',
+                            }
+                        }
+                    >PUBLISH POST</Button>
                 </Container>
             </Form>
         </Container>
@@ -423,10 +434,31 @@ const PostPage = () => {
                                     </Container>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true} width="100%" height="100%"></ReactPlayer> }
-                                    
-                                    {topic.image &&<Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>}
-                                    <div key={"text" + topic.id}>{topic.text ==='undefined' ? '': topic.text}</div>
+                                    {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true} width="100%" height="100%"></ReactPlayer>}
+                                    {topic.image && <Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>}
+                                    <div key={"text" + topic.id}>{topic.text === 'undefined' ? '' : topic.text}</div>
+
+                                    <Form>
+                                        <Form.Group> <Form.Label htmlFor={"comment" + topic.id}
+                                            style={{
+                                                marginTop: '0.5rem',
+                                                fontSize: 'medium',
+                                                fontWeight: '900',
+                                                color: 'rgb(124, 42, 12)'
+                                            }}
+                                        >COMMENT: </Form.Label>
+                                        
+                                            <Form.Control id={"comment" + topic.id} as="textarea" name='textValue' rows={5} />
+                                            <input type="button" onClick={sendComment} value= {"comment" + topic.id}
+                                              style={{
+                                                backgroundColor: 'rgb(124, 42, 12)',
+                                                fontSize: 'small',
+                                                fontWeight: '700',
+                                                color: 'white'
+                                              }}
+                                            />
+                                        </Form.Group>
+                                    </Form>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
