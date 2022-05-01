@@ -480,8 +480,8 @@ const PostPage = () => {
                                             }}
                                         >COMMENT: </Form.Label>
 
-                                            <input id={"comment" + topic.id} type="textarea" name={topic.id}  rows={5} />
-                                            <input type="button" onClick={sendComment} value={"comment" + topic.id}
+                                            <input id={"Comment in post: " + topic.id} type="textarea" name={topic.id}  rows={5} />
+                                            <input type="button" onClick={sendComment} value={"Comment in post: " + topic.id}
                                                 style={{
                                                     backgroundColor: 'rgb(124, 42, 12)',
                                                     fontSize: 'small',
