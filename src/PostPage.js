@@ -45,7 +45,7 @@ const PostPage = () => {
     }, [postBody.image, postBody.video])
     useEffect(() => {
 
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
         var requestOptions = {
             method: 'GET',
             headers: {
@@ -71,7 +71,7 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }, [])
     useEffect(() => {
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
         var requestOptions = {
             method: 'GET',
             headers: {
@@ -168,7 +168,7 @@ const PostPage = () => {
         if (!postBody.image) {
             url = "http://localhost:3001/api/users/postVideo"
         }
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
         var formdata = new FormData();
         formdata.append("video", postBody.video);
         formdata.append("image", postBody.image);
@@ -190,7 +190,7 @@ const PostPage = () => {
             .catch(error => console.log('error', error));
     }
     function sendComment(value) {
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
         const textBox = document.getElementById(value.target.value).value;
         const name = document.getElementById(value.target.value).name;
 
@@ -214,7 +214,7 @@ const PostPage = () => {
     }
 
     function deleteUser() {
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
 
 
         var requestOptions = {
@@ -233,7 +233,7 @@ const PostPage = () => {
         unlogin();
     }
     function unlogin() {
-        window.sessionStorage.removeItem('session')
+        window.localStorage.removeItem('session')
         window.location.reload(false);
     }
     function updateUnreadPosts(session, postIds) {
@@ -270,7 +270,7 @@ const PostPage = () => {
 
     function handleUpdateRead(event, id) {
 
-        const session = window.sessionStorage.getItem('session')
+        const session = window.localStorage.getItem('session')
         var requestOptions = {
             method: 'GET',
             headers: {
@@ -471,7 +471,7 @@ const PostPage = () => {
 
                                   
                                     <Form>
-                                        <Form.Group> <Form.Label htmlFor={"comment" + topic.id}
+                                        <Form.Group> <Form.Label htmlFor={"Comment in post: " + topic.id}
                                             style={{
                                                 marginTop: '0.5rem',
                                                 fontSize: 'medium',

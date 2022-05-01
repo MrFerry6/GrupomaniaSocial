@@ -13,13 +13,13 @@ const MainUser = () => {
 
   const authUrl = 'http://localhost:3001/api/auth/auth'
   useEffect(() => {
-    const token = window.sessionStorage.getItem('session')
+    const token = window.localStorage.getItem('session')
     if (token) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       var raw = JSON.stringify({
-        token: window.sessionStorage.getItem('session')
+        token: window.localStorage.getItem('session')
       });
 
       var requestOptions = {

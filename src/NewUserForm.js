@@ -49,7 +49,7 @@ const NewUserForm = ({ isSingup }) => {
       .then(response => response.text())
       .then((result) => {
         console.log('result; ' + result);
-        sessionStorage.setItem('session', result)
+        localStorage.setItem('session', result)
         window.location.reload(false);
       })
       .catch(error => console.log('error', error));
