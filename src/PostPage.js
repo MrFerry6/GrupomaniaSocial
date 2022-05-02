@@ -194,22 +194,24 @@ const PostPage = () => {
         const textBox = document.getElementById(value.target.value).value;
         const name = document.getElementById(value.target.value).name;
 
-        if (textBox) {console.log(textBox);
+        if (textBox) {
+            console.log(textBox);
             var requestOptions = {
                 method: 'PUT', headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + session
                 },
                 body: JSON.stringify(
-                    {textBox, name},
-                     ),
+                    { textBox, name },
+                ),
                 redirect: 'follow'
             };
             fetch('http://localhost:3001/api/users/addComment', requestOptions)
                 .then(response => response.text())
                 .then((result) => {
-                    window.location.reload(false); })
-                .catch(error => console.log('error', error));        
+                    window.location.reload(false);
+                })
+                .catch(error => console.log('error', error));
         }
     }
 
@@ -453,23 +455,31 @@ const PostPage = () => {
                                     {topic.video && <ReactPlayer key={"player" + topic.id} url={topic.video} controls={true} width="100%" height="100%"></ReactPlayer>}
                                     {topic.image && <Image thumbnail="true" alt="An user image here" key={"image" + topic.id} src={topic.image}></Image>}
                                     <Container
-                                      style={{
-                                        marginTop: '0.5rem',
-                                        borderStyle: 'double',
-                                        borderColor: 'rgb(124, 42, 12)'
-                                    }}
-                                    > <div key={"text" + topic.id}>{topic.text === 'undefined' ? '' : topic.text}</div></Container>
-                                    {  topic.comments && topic.comments.map((comment) => <>{
-                                       <Container 
-                                       style={{
-                                        marginTop: '0.5rem',
-                                        borderStyle: 'inset',
-                                        borderColor: 'rgb(124, 42, 12)'
-                                    }}
-                                    > <div key={"coment" + topic.id}>{comment === 'undefined' ? '' : comment}</div></Container> }</>
-                                            )}
+                                        style={{
+                                            marginTop: '0.5rem',
+                                            borderStyle: 'double',
+                                            borderColor: 'rgb(124, 42, 12)'
+                                        }}
+                                    > <div key={"text" + topic.id}>{topic.text === 'undefined' ? '' : topic.text}</div>
+                                    </Container>
+                                    {topic.comments && topic.comments.map((comment) => <>{
+                                        <Container
+                                            style={{
+                                                marginTop: '0.5rem',
+                                                borderStyle: 'solid',
+                                                borderColor: 'rgb(124, 42, 12)'
+                                            }}
+                                        > <div key={"coment" + topic.id}
+                                            style={{
+                                                borderBottomStyle: 'inset',
+                                                borderColor: 'rgb(124, 42, 12)'
+                                            }}
+                                        >{comment === 'undefined' ? '' : comment[0]}</div>
+                                            <h6>{'Comment created by: ' + comment[1] + '     At: ' + comment[2]}</h6>
+                                        </Container>}</>
+                                    )}
 
-                                  
+
                                     <Form>
                                         <Form.Group> <Form.Label htmlFor={"Comment in post: " + topic.id}
                                             style={{
@@ -480,7 +490,7 @@ const PostPage = () => {
                                             }}
                                         >COMMENT: </Form.Label>
 
-                                            <Form.Control as="textarea" id={"Comment in post: " + topic.id} type="textarea" name={topic.id}  rows={5} />
+                                            <Form.Control as="textarea" id={"Comment in post: " + topic.id} type="textarea" name={topic.id} rows={5} />
                                             <input type="button" onClick={sendComment} value={"Comment in post: " + topic.id}
                                                 style={{
                                                     backgroundColor: 'rgb(124, 42, 12)',
