@@ -1,3 +1,4 @@
+const { DATETIME } = require('mysql/lib/protocol/constants/types');
 const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
 const Post = require(`../models/post`)(sequelize);
@@ -64,7 +65,9 @@ exports.addComment = (req,res) =>{
      
       User.findOne({where: {id: post.userId}})
       .then((user)=>{
-        comments.push(req.body.textBox);
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        comments.push([req.body.textBox, user.email, date]);
 
         post.update({
             comments : comments
