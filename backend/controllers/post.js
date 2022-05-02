@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const sequelize = createSequelize();
 const Post = require(`../models/post`)(sequelize);
-
+const User = require('../models/user')(sequelize)
 exports.post = (req, res, next) => {
     const body = req.body;
     let imageUrl = null;
@@ -61,11 +61,15 @@ exports.addComment = (req,res) =>{
       {
           comments.push(post.comments[i]);
       }
-      comments.push(req.body.textBox);
-      post.update({
-          comments : comments
+     
+      User.findOne({where: {id: post.userId}})
+      .then((user)=>{
+        comments.push(req.body.textBox);
+
+        post.update({
+            comments : comments
+        })
       })
-  
       .then(() =>{
         console.log('Post Updated!!!')
         res.status(200).json({
