@@ -1,3 +1,8 @@
+• Build a Full-Stack solution. 
+A social media web site, created for a fictitious company. This solution permit creates new users that can read post, marking off unread, create news posts, response them and upload multimedia content. Front-End was created using React and Bootstrap to generate a dynamical and interactive interface. Node and Express to manage a secured Back-End that implement CRUD operations in a relational MySql DB managed by MySql Workbench and Sequelize OMR models to transcript data. 
+
+
+
 -SETUP PROJECT FILES:  
 -At the folder that the project will install, click Git Bash Here at the contextual menu.  
 -At the console type:  
