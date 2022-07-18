@@ -40,9 +40,9 @@ A social media web site, created for a fictitious company. This solution permit 
 -TO EXECUTE THE FRONTEND:  
 -In a terminal at the main root of the project type ‘npm run start’.  
 -If this error appears at the terminal:  
- "error:0308010C:digital envelope routines::unsupported"  
--Change the parameter ‘start’ at the script sections at the package.json file to this:  
-	- "start": "react-scripts --openssl-legacy-provider start"  
+ 	"error:0308010C:digital envelope routines::unsupported"  
+	Change the parameter ‘start’ at the script sections at the package.json file to this:  
+		"start": "react-scripts --openssl-legacy-provider start"  
 
 
 -USING THE SITE:  
